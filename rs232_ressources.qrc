@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/imgs">
+        <file>images/settings.png</file>
+        <file>images/icons8-usb-disconnected-48.png</file>
+        <file>images/icons8-usb-connected-48.png</file>
+        <file>images/icons8-services-48.png</file>
+        <file>images/icons8-rs-232-male-48.png</file>
+        <file>images/icons8-clear-symbol-48.png</file>
+        <file>images/icons8-adjust-48.png</file>
+        <file>images/disconnect.png</file>
+        <file>images/connect.png</file>
+        <file>images/clear.png</file>
+        <file>images/application-exit.png</file>
+        <file>images/forward.png</file>
+    </qresource>
+</RCC>
