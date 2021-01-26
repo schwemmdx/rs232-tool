@@ -12,5 +12,6 @@
         <file>images/clear.png</file>
         <file>images/application-exit.png</file>
         <file>images/forward.png</file>
+         <file>images/dlr_logo.png</file>
     </qresource>
 </RCC>

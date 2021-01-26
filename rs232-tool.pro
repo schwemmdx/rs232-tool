@@ -9,6 +9,7 @@ TARGET = RS232-Tool
 
 
 SOURCES += \
+    dlrdialog.cpp \
     listentry.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     writingthread.cpp
 
 HEADERS += \
+    dlrdialog.h \
     listentry.h \
     mainwindow.h \
     oszigraph.h \
@@ -26,6 +28,7 @@ HEADERS += \
     writingthread.h
 
 FORMS += \
+    dlrdialog.ui \
     mainwindow.ui \
     protocolEdit.ui \
     settingsdialog.ui

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1013</width>
-    <height>711</height>
+    <width>1015</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideLeft</enum>
@@ -324,8 +324,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1013</width>
-     <height>22</height>
+     <width>1015</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">
@@ -336,6 +336,7 @@
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
+    <addaction name="actionStart_DLR_Control"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -530,6 +531,11 @@
   <action name="actionNew_Graph">
    <property name="text">
     <string>Add</string>
+   </property>
+  </action>
+  <action name="actionStart_DLR_Control">
+   <property name="text">
+    <string>DLR Control</string>
    </property>
   </action>
  </widget>

@@ -36,7 +36,7 @@ OsziGraph::OsziGraph() : QWidget()
     this->axisX->setLabelFormat("%d");
     this->axisY->setTickCount(0);
     this->axisY->setLabelFormat("%d");
-    this->chartView::update();
+    //this->chartView::update();
 
 }
 /*

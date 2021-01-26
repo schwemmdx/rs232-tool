@@ -55,6 +55,7 @@
 #include <QMainWindow>
 #include <QSerialPort>
 #include <settingsdialog.h>
+#include "dlrdialog.h"
 #include "readingthread.h"
 #include "writingthread.h"
 #include "listentry.h"
@@ -107,6 +108,8 @@ private slots:
 
     void on_tabWidget_tabCloseRequested(int index);
 
+    void on_actionStart_DLR_Control_triggered();
+
 private:
     void initActionsConnections();
 
@@ -116,7 +119,9 @@ private:
     Ui::MainWindow *m_ui = nullptr;
     QLabel *m_status = nullptr;
 
-    SettingsDialog *m_settings;
+    SettingsDialog* m_settings;
+    DlrDialog* dlrDlg;
+
     QSerialPort *m_serial = nullptr;
 
     ReadingThread readingThread;

@@ -56,6 +56,9 @@
 
 
 #include <QtSerialPort/QSerialPort>
+
+#define USE_DLR_PLUGIN 1
+
 int main(int argc, char *argv[])
 {
 

@@ -53,6 +53,7 @@
 #include "ui_mainwindow.h"
 
 #include "settingsdialog.h"
+#include "dlrdialog.h"
 #include "readingthread.h"
 #include "writingthread.h"
 #include "listentry.h"
@@ -88,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     m_ui->setupUi(this);
+
     setCentralWidget(m_ui->tabWidget);
 
     this->series= new QT_CHARTS_NAMESPACE::QLineSeries();
@@ -96,6 +98,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->chartView->setRenderHint(QPainter::Antialiasing);
 
     m_settings = new SettingsDialog(this);
+    this->dlrDlg = new DlrDialog();
 
 
     m_ui->actionConnect->setEnabled(true);
@@ -189,7 +192,7 @@ void MainWindow::openSerialPort()
                                          .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
        showStatusMessage(this->connectionStatus+ "\t"+ this->usedProtocol);
     } else {
-        QMessageBox::critical(this, tr("Error"), m_serial->errorString());
+        QMessageBox::critical(this, tr("Error"),tr("Could <b>not</b> connect to Serial Port!<p>Check Connection Settings"));
 
         showStatusMessage(tr("Open error"));
     }
@@ -399,4 +402,10 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     {
         this->m_ui->tabWidget->removeTab(index);
     }
+}
+
+void MainWindow::on_actionStart_DLR_Control_triggered()
+{
+    this->dlrDlg->move(this->pos().rx()+this->width(),this->pos().ry());
+    this->dlrDlg->show();
 }
