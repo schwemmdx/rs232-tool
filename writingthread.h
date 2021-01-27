@@ -20,11 +20,14 @@ public slots:
     void run();
     void stop();
     void start();
-    void sendData(QString);
+    void sendData( QString data);
+
+    //dlr specific
+
    // void configure(QSerialPort*); // there is no need for this shit ?
 
 signals:
-    void sendSucessful();
+    void sendSucessful(QString);
     void error(QString err);
 
 private:

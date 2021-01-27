@@ -26,7 +26,7 @@ void WritingThread::sendData(QString stringCmd)
 {
     if( this->serialPort->putChar(stringCmd.toUInt()))
     {
-        emit WritingThread::sendSucessful();
+        emit WritingThread::sendSucessful(stringCmd);
     }
     else
     {

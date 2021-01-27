@@ -105,6 +105,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui->actionDisconnect->setEnabled(false);
     m_ui->actionQuit->setEnabled(true);
     m_ui->actionConfigure->setEnabled(true);
+    m_ui->actionStart_DLR_Control->setEnabled(false);
 
     m_ui->statusBar->addWidget(m_status);
 
@@ -114,13 +115,15 @@ MainWindow::MainWindow(QWidget *parent) :
     initActionsConnections();
 
 
+
     connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
 
     connect(m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
     connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
-    connect(&writingThread, &WritingThread::sendSucessful, this, &MainWindow::addWriteData);
+    connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
 
-    //Create Graph object
+    connect(this->dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
+
     /*
      * Graph init
       */
@@ -184,6 +187,7 @@ void MainWindow::openSerialPort()
         m_ui->actionConnect->setEnabled(false);
         m_ui->actionDisconnect->setEnabled(true);
         m_ui->actionConfigure->setEnabled(false);
+        m_ui->actionStart_DLR_Control->setEnabled(true);
         readingThread.start();
         writingThread.start();
         m_ui->txSendField->setEnabled(true);
@@ -212,6 +216,8 @@ void MainWindow::closeSerialPort()
     m_ui->actionDisconnect->setEnabled(false);
     m_ui->actionConfigure->setEnabled(true);
     m_ui->txSendField->setEnabled(false);
+    m_ui->actionStart_DLR_Control->setEnabled(false);
+    this->dlrDlg->hide();
     this->connectionStatus = tr("Disconnected");
     showStatusMessage(this->connectionStatus+ "\t"+ this->usedProtocol);
 
@@ -221,10 +227,10 @@ void MainWindow::closeSerialPort()
 
 
 //! [6]
-void MainWindow::addWriteData()
+void MainWindow::addWriteData(QString writtenData)
 {
 
-    this->parsedWriteCommand = m_ui->txSendField->text();
+    this->parsedWriteCommand = writtenData;
     this->parsedWriteCommand = this->timeStamp.getEnty(this->parsedWriteCommand);
     m_ui->txList->addItem(this->parsedWriteCommand);
     m_ui->txSendField->clear();
@@ -406,6 +412,9 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 void MainWindow::on_actionStart_DLR_Control_triggered()
 {
-    this->dlrDlg->move(this->pos().rx()+this->width(),this->pos().ry());
-    this->dlrDlg->show();
+
+        this->dlrDlg->move(this->pos().rx()+this->width(),this->pos().ry());
+        this->dlrDlg->show();
+
+
 }

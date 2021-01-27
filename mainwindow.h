@@ -90,7 +90,7 @@ public:
 private slots:
     void openSerialPort();
     void closeSerialPort();
-    void addWriteData();
+    void addWriteData(QString);
     void addReadData();
 
 
