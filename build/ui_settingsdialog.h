@@ -28,6 +28,7 @@ public:
     QGridLayout *gridLayout_3;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
+    QPushButton *refreshBtn;
     QPushButton *applyButton;
     QGroupBox *selectBox;
     QGridLayout *gridLayout;
@@ -63,6 +64,11 @@ public:
         horizontalSpacer = new QSpacerItem(96, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
+
+        refreshBtn = new QPushButton(SettingsDialog);
+        refreshBtn->setObjectName(QString::fromUtf8("refreshBtn"));
+
+        horizontalLayout->addWidget(refreshBtn);
 
         applyButton = new QPushButton(SettingsDialog);
         applyButton->setObjectName(QString::fromUtf8("applyButton"));
@@ -184,6 +190,7 @@ public:
     void retranslateUi(QDialog *SettingsDialog)
     {
         SettingsDialog->setWindowTitle(QCoreApplication::translate("SettingsDialog", "Settings", nullptr));
+        refreshBtn->setText(QCoreApplication::translate("SettingsDialog", "Refresh", nullptr));
         applyButton->setText(QCoreApplication::translate("SettingsDialog", "Apply", nullptr));
         selectBox->setTitle(QCoreApplication::translate("SettingsDialog", "Select Serial Port", nullptr));
         descriptionLabel->setText(QCoreApplication::translate("SettingsDialog", "Description:", nullptr));

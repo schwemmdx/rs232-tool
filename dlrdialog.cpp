@@ -181,3 +181,8 @@ void DlrDialog::delay(int ms)
         nanosleep(&ts, NULL);
     #endif
     }
+
+void DlrDialog::on_valve_0_Btn_clicked()
+{
+
+}

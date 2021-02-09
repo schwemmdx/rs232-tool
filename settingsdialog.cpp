@@ -224,3 +224,10 @@ void SettingsDialog::updateSettings()
 
 
 }
+
+void SettingsDialog::on_refreshBtn_clicked()
+{
+    this->fillPortsInfo();
+    this->fillPortsParameters();
+    this->updateSettings();
+}

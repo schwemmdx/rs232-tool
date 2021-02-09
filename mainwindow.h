@@ -61,6 +61,7 @@
 #include "listentry.h"
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <osziview.h>
 
 #include <QValueAxis>
 
@@ -86,7 +87,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
-
+signals:
+    void newCommandParsed(QString);
 private slots:
     void openSerialPort();
     void closeSerialPort();
@@ -112,10 +114,10 @@ private slots:
 
 private:
     void initActionsConnections();
-
-private:
     void showStatusMessage(const QString &message);
 
+
+    OsziView* primaryOszi= nullptr;
     Ui::MainWindow *m_ui = nullptr;
     QLabel *m_status = nullptr;
 
@@ -133,17 +135,6 @@ private:
 
     //commandhistory
     QVector<uint8_t> commandHistory;
-
-    //Chart related information
-    int seriesXIncrement;
-    double AxisYmax;
-    double AxisYmin;
-    QT_CHARTS_NAMESPACE::QChart* chart;
-    QT_CHARTS_NAMESPACE::QLineSeries* series;
-    QT_CHARTS_NAMESPACE::QChartView* chartView;
-
-    QT_CHARTS_NAMESPACE::QValueAxis *axisX;
-    QT_CHARTS_NAMESPACE::QValueAxis *axisY;
 
     QString usedProtocol;
     QString connectionStatus;

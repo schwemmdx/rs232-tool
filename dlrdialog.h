@@ -45,6 +45,8 @@ private slots:
 
     void on_rpmSlider_sliderReleased();
 
+    void on_valve_0_Btn_clicked();
+
 private:
     Ui::DlrDialog *ui;
     QString sendCmd;

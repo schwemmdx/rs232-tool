@@ -52,11 +52,12 @@ public:
     QAction *actionLoad;
     QAction *actionEdit;
     QAction *actionNew_Graph;
+    QAction *actionStart_DLR_Control;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
     QWidget *listTab;
-    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
     QGridLayout *mainListLayout;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_3;
@@ -66,21 +67,13 @@ public:
     QLabel *lastCmd;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_2;
+    QPushButton *sendBtn;
     QListWidget *txList;
     QLineEdit *txSendField;
-    QPushButton *sendBtn;
     QSpacerItem *verticalSpacer;
     QWidget *graphTab;
-    QWidget *layoutWidget1;
-    QGridLayout *gridLayout_4;
-    QLineEdit *idicationCmd;
-    QSpacerItem *horizontalSpacer_2;
-    QLabel *label_2;
-    QSpacerItem *horizontalSpacer_5;
+    QGridLayout *gridLayout_5;
     QGridLayout *graphLayout;
-    QSpacerItem *horizontalSpacer_4;
-    QSpacerItem *horizontalSpacer_3;
-    QSpacerItem *horizontalSpacer_6;
     QToolBar *mainToolBar;
     QMenuBar *menuBar;
     QMenu *menuCalls;
@@ -94,7 +87,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1013, 711);
+        MainWindow->resize(1015, 712);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/imgs/images/icons8-rs-232-male-48.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -149,6 +142,11 @@ public:
         actionEdit->setObjectName(QString::fromUtf8("actionEdit"));
         actionNew_Graph = new QAction(MainWindow);
         actionNew_Graph->setObjectName(QString::fromUtf8("actionNew_Graph"));
+        actionStart_DLR_Control = new QAction(MainWindow);
+        actionStart_DLR_Control->setObjectName(QString::fromUtf8("actionStart_DLR_Control"));
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/imgs/images/dlr_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionStart_DLR_Control->setIcon(icon6);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -166,15 +164,14 @@ public:
         tabWidget->setMovable(false);
         listTab = new QWidget();
         listTab->setObjectName(QString::fromUtf8("listTab"));
-        layoutWidget = new QWidget(listTab);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 20, 971, 541));
-        mainListLayout = new QGridLayout(layoutWidget);
+        gridLayout = new QGridLayout(listTab);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        mainListLayout = new QGridLayout();
         mainListLayout->setSpacing(6);
-        mainListLayout->setContentsMargins(11, 11, 11, 11);
         mainListLayout->setObjectName(QString::fromUtf8("mainListLayout"));
-        mainListLayout->setContentsMargins(0, 0, 0, 0);
-        groupBox = new QGroupBox(layoutWidget);
+        groupBox = new QGroupBox(listTab);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         QFont font1;
         font1.setBold(false);
@@ -211,13 +208,23 @@ public:
 
         mainListLayout->addWidget(groupBox, 0, 0, 1, 1);
 
-        groupBox_2 = new QGroupBox(layoutWidget);
+        groupBox_2 = new QGroupBox(listTab);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setFont(font1);
         gridLayout_2 = new QGridLayout(groupBox_2);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        sendBtn = new QPushButton(groupBox_2);
+        sendBtn->setObjectName(QString::fromUtf8("sendBtn"));
+        sendBtn->setLayoutDirection(Qt::RightToLeft);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/imgs/images/forward.png"), QSize(), QIcon::Normal, QIcon::Off);
+        sendBtn->setIcon(icon7);
+        sendBtn->setFlat(false);
+
+        gridLayout_2->addWidget(sendBtn, 1, 1, 1, 1);
+
         txList = new QListWidget(groupBox_2);
         txList->setObjectName(QString::fromUtf8("txList"));
 
@@ -236,16 +243,6 @@ public:
 
         gridLayout_2->addWidget(txSendField, 1, 0, 1, 1);
 
-        sendBtn = new QPushButton(groupBox_2);
-        sendBtn->setObjectName(QString::fromUtf8("sendBtn"));
-        sendBtn->setLayoutDirection(Qt::RightToLeft);
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/imgs/images/forward.png"), QSize(), QIcon::Normal, QIcon::Off);
-        sendBtn->setIcon(icon6);
-        sendBtn->setFlat(false);
-
-        gridLayout_2->addWidget(sendBtn, 1, 1, 1, 1);
-
 
         mainListLayout->addWidget(groupBox_2, 0, 4, 1, 1);
 
@@ -253,52 +250,21 @@ public:
 
         mainListLayout->addItem(verticalSpacer, 0, 3, 1, 1);
 
+
+        gridLayout->addLayout(mainListLayout, 0, 0, 1, 1);
+
         tabWidget->addTab(listTab, QString());
         graphTab = new QWidget();
         graphTab->setObjectName(QString::fromUtf8("graphTab"));
-        layoutWidget1 = new QWidget(graphTab);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(9, 10, 971, 561));
-        gridLayout_4 = new QGridLayout(layoutWidget1);
-        gridLayout_4->setSpacing(6);
-        gridLayout_4->setContentsMargins(11, 11, 11, 11);
-        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        idicationCmd = new QLineEdit(layoutWidget1);
-        idicationCmd->setObjectName(QString::fromUtf8("idicationCmd"));
-
-        gridLayout_4->addWidget(idicationCmd, 1, 8, 1, 1);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_2, 1, 2, 1, 1);
-
-        label_2 = new QLabel(layoutWidget1);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout_4->addWidget(label_2, 1, 7, 1, 1);
-
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_5, 1, 5, 1, 1);
-
+        gridLayout_5 = new QGridLayout(graphTab);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
         graphLayout = new QGridLayout();
         graphLayout->setSpacing(6);
         graphLayout->setObjectName(QString::fromUtf8("graphLayout"));
 
-        gridLayout_4->addLayout(graphLayout, 0, 1, 1, 8);
-
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_4, 1, 4, 1, 1);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_3, 1, 3, 1, 1);
-
-        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_6, 1, 6, 1, 1);
+        gridLayout_5->addLayout(graphLayout, 0, 0, 1, 1);
 
         tabWidget->addTab(graphTab, QString());
 
@@ -318,7 +284,7 @@ public:
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1013, 22));
+        menuBar->setGeometry(QRect(0, 0, 1015, 22));
         menuCalls = new QMenu(menuBar);
         menuCalls->setObjectName(QString::fromUtf8("menuCalls"));
         menuTools = new QMenu(menuBar);
@@ -339,6 +305,7 @@ public:
         mainToolBar->addAction(actionConnect);
         mainToolBar->addAction(actionDisconnect);
         mainToolBar->addAction(actionClear);
+        mainToolBar->addAction(actionStart_DLR_Control);
         menuBar->addAction(menuCalls->menuAction());
         menuBar->addAction(menuProtocol->menuAction());
         menuBar->addAction(menuGraph->menuAction());
@@ -347,6 +314,8 @@ public:
         menuCalls->addAction(actionConfigure);
         menuCalls->addAction(actionConnect);
         menuCalls->addAction(actionDisconnect);
+        menuCalls->addSeparator();
+        menuCalls->addAction(actionStart_DLR_Control);
         menuCalls->addSeparator();
         menuCalls->addAction(actionQuit);
         menuTools->addAction(actionClear);
@@ -366,7 +335,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         rxList->setCurrentRow(-1);
 
 
@@ -433,14 +402,13 @@ public:
 #endif // QT_CONFIG(shortcut)
         actionEdit->setText(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         actionNew_Graph->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
+        actionStart_DLR_Control->setText(QCoreApplication::translate("MainWindow", "DLR Plugin ", nullptr));
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Recieving ", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Last Command :", nullptr));
         lastCmd->setText(QCoreApplication::translate("MainWindow", "-", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Sending", nullptr));
         sendBtn->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(listTab), QCoreApplication::translate("MainWindow", "List View", nullptr));
-        idicationCmd->setText(QCoreApplication::translate("MainWindow", "None", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "Escape Character", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(graphTab), QCoreApplication::translate("MainWindow", "Scope", nullptr));
         menuCalls->setTitle(QCoreApplication::translate("MainWindow", "Session", nullptr));
         menuTools->setTitle(QCoreApplication::translate("MainWindow", "Log", nullptr));

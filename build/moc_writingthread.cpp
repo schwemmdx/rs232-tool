@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_WritingThread_t {
-    QByteArrayData data[9];
-    char stringdata0[63];
+    QByteArrayData data[10];
+    char stringdata0[68];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,11 +40,12 @@ QT_MOC_LITERAL(4, 35, 3), // "err"
 QT_MOC_LITERAL(5, 39, 3), // "run"
 QT_MOC_LITERAL(6, 43, 4), // "stop"
 QT_MOC_LITERAL(7, 48, 5), // "start"
-QT_MOC_LITERAL(8, 54, 8) // "sendData"
+QT_MOC_LITERAL(8, 54, 8), // "sendData"
+QT_MOC_LITERAL(9, 63, 4) // "data"
 
     },
     "WritingThread\0sendSucessful\0\0error\0"
-    "err\0run\0stop\0start\0sendData"
+    "err\0run\0stop\0start\0sendData\0data"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,24 +63,24 @@ static const uint qt_meta_data_WritingThread[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x06 /* Public */,
-       3,    1,   45,    2, 0x06 /* Public */,
+       1,    1,   44,    2, 0x06 /* Public */,
+       3,    1,   47,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   48,    2, 0x0a /* Public */,
-       6,    0,   49,    2, 0x0a /* Public */,
-       7,    0,   50,    2, 0x0a /* Public */,
-       8,    1,   51,    2, 0x0a /* Public */,
+       5,    0,   50,    2, 0x0a /* Public */,
+       6,    0,   51,    2, 0x0a /* Public */,
+       7,    0,   52,    2, 0x0a /* Public */,
+       8,    1,   53,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString,    4,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::QString,    9,
 
        0        // eod
 };
@@ -90,7 +91,7 @@ void WritingThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         auto *_t = static_cast<WritingThread *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->sendSucessful(); break;
+        case 0: _t->sendSucessful((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 1: _t->error((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->run(); break;
         case 3: _t->stop(); break;
@@ -101,7 +102,7 @@ void WritingThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (WritingThread::*)();
+            using _t = void (WritingThread::*)(QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&WritingThread::sendSucessful)) {
                 *result = 0;
                 return;
@@ -158,9 +159,10 @@ int WritingThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void WritingThread::sendSucessful()
+void WritingThread::sendSucessful(QString _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1

@@ -92,11 +92,16 @@ public:
 
     Settings settings();
 
+signals:
+    void refreshRequest();
+
 private slots:
     void showPortInfo(int idx);
     void apply();
     void checkCustomBaudRatePolicy(int idx);
     void checkCustomDevicePathPolicy(int idx);
+
+    void on_refreshBtn_clicked();
 
 private:
     void fillPortsParameters();

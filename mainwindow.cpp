@@ -57,7 +57,7 @@
 #include "readingthread.h"
 #include "writingthread.h"
 #include "listentry.h"
-#include "oszigraph.h"
+#include "osziview.h"
 
 
 #include <QLabel>
@@ -74,7 +74,7 @@
 #include <QValueAxis>
 
 #include <yaml-cpp/yaml.h>
-
+#include <string>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -92,12 +92,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setCentralWidget(m_ui->tabWidget);
 
-    this->series= new QT_CHARTS_NAMESPACE::QLineSeries();
-    this->chart = new QT_CHARTS_NAMESPACE::QChart();
-    this->chartView = new QT_CHARTS_NAMESPACE::QChartView(this->chart);
-    this->chartView->setRenderHint(QPainter::Antialiasing);
 
     m_settings = new SettingsDialog(this);
+
     this->dlrDlg = new DlrDialog();
 
 
@@ -106,55 +103,25 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui->actionQuit->setEnabled(true);
     m_ui->actionConfigure->setEnabled(true);
     m_ui->actionStart_DLR_Control->setEnabled(false);
-
     m_ui->statusBar->addWidget(m_status);
 
-
-    this->m_ui->graphLayout->addWidget(this->chartView);
+    this->primaryOszi = new OsziView(this);
+    this->m_ui->graphLayout->addWidget(this->primaryOszi);
 
     initActionsConnections();
 
-
-
     connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
-
     connect(m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
     connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
     connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
-
     connect(this->dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
 
-    /*
-     * Graph init
-      */
 
-    this->chart->setAnimationOptions(QT_CHARTS_NAMESPACE::QChart::SeriesAnimations);
-    this->chart->setAnimationDuration(50);
-    this->chart->legend()->hide();
 
-    this->chart->setPlotAreaBackgroundVisible(true);
 
-    this->series->setVisible(true);
 
-    this->chart->addSeries(series);
-    this->axisX = new QT_CHARTS_NAMESPACE::QValueAxis;
-    this->axisY = new QT_CHARTS_NAMESPACE::QValueAxis;
 
-    this->chartView->chart()->addAxis(axisY, Qt::AlignLeft);
-    this->chartView->chart()->addAxis(axisX, Qt::AlignBottom);
-    this->series->attachAxis(this->axisX);
-    this->series->attachAxis(this->axisY);
-    this->seriesXIncrement=-1;
-    this->AxisYmax = 0;
-    this->AxisYmin = 255;
-    this->axisX->setTickCount(10);
-    this->axisX->setLabelFormat("%d");
-    this->axisY->setTickCount(0);
-    this->axisY->setLabelFormat("%d");
-    /*END Graph init*/
-    this->connectionStatus = tr("Disconnected");
-    this->usedProtocol = tr("No Protocol used");
-    showStatusMessage(this->connectionStatus+ "\t"+ this->usedProtocol);
+
 //![3]
 
 //![4]
@@ -232,7 +199,7 @@ void MainWindow::addWriteData(QString writtenData)
 
     this->parsedWriteCommand = writtenData;
     this->parsedWriteCommand = this->timeStamp.getEnty(this->parsedWriteCommand);
-    m_ui->txList->addItem(this->parsedWriteCommand);
+    m_ui->txList->insertItem(0,this->parsedWriteCommand);
     m_ui->txSendField->clear();
 }
 //! [6]
@@ -240,30 +207,7 @@ void MainWindow::addWriteData(QString writtenData)
 //! [7]
 void MainWindow::addReadData()
 {    this->parsedReadCommand = QString::number(this->readingThread.getLastCommand());
-     this->commandHistory.append(this->parsedReadCommand.toUInt());
-    /*Graph update*/
-
-     //Check for escape character
-     if(commandHistory.size() > 1 && commandHistory[commandHistory.size()-2] == this->m_ui->idicationCmd->text().toUInt() )
-     {
-
-         this->AxisYmax = qMax(AxisYmax,this->parsedReadCommand.toDouble());
-         this->AxisYmin = qMin(AxisYmin,this->parsedReadCommand.toDouble());
-         this->series->append(this->seriesXIncrement,this->parsedReadCommand.toUInt());
-         this->axisY->setRange(  this->AxisYmin-1, this->AxisYmax+1);
-         this->axisX->setRange(0, this->series->points().length());
-         this->seriesXIncrement++;
-
-     }
-     else if (this->m_ui->idicationCmd->text().isEmpty()||this->m_ui->idicationCmd->text() ==QString("None") )
-     {
-         this->AxisYmax = qMax(AxisYmax,this->parsedReadCommand.toDouble());
-         this->AxisYmin = qMin(AxisYmin,this->parsedReadCommand.toDouble());
-         this->series->append(this->seriesXIncrement,this->parsedReadCommand.toUInt());
-         this->axisY->setRange(  this->AxisYmin-1, this->AxisYmax+1);
-         this->axisX->setRange(0, this->series->points().length());
-         this->seriesXIncrement++;
-     }
+     emit newCommandParsed(this->parsedReadCommand);
      this->m_ui->lastCmd->setText(this->parsedReadCommand);
      this->parsedReadCommand = this->timeStamp.getEnty(this->parsedReadCommand);
      this->m_ui->rxList->insertItem(0,this->parsedReadCommand);
@@ -301,8 +245,9 @@ void MainWindow::showStatusMessage(const QString &message)
 
 void MainWindow::on_txSendField_returnPressed()
 {
-    this->writingThread.sendData(m_ui->txSendField->text());
 
+    this->writingThread.sendData(QString::number(m_ui->txSendField->text().toInt(nullptr,0)));
+    //m_ui->txSendField->text()
 
 }
 
@@ -367,15 +312,8 @@ void MainWindow::on_actionLoad_triggered()
 
 void MainWindow::on_actionNew_Graph_triggered()
 {
-    //QMessageBox::information(this,tr("Sorry"),tr("Not implemented yet =("));
-    QString newName = QInputDialog::getText(this,
-    tr("Renaming Tab"),
-    tr("Scope Name:"));
-     if(newName !="")
-     {
-         this->m_ui->tabWidget->addTab(new OsziGraph(),newName);
-     }
 
+         this->m_ui->tabWidget->addTab( new OsziView(this),QString("Scope %0").arg(this->m_ui->tabWidget->count()));
 }
 
 void MainWindow::on_tabWidget_tabBarDoubleClicked(int index)
@@ -418,3 +356,5 @@ void MainWindow::on_actionStart_DLR_Control_triggered()
 
 
 }
+
+
