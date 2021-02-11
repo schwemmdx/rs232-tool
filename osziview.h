@@ -24,6 +24,9 @@ signals:
 public slots:
    void addValue(QString);
 
+private slots:
+   void on_yValueTypeBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::OsziView *ui;
 

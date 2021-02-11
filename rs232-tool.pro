@@ -34,7 +34,6 @@ FORMS += \
     dlrdialog.ui \
     mainwindow.ui \
     osziview.ui \
-    protocolEdit.ui \
     settingsdialog.ui
 
 RESOURCES += \

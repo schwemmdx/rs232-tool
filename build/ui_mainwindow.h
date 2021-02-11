@@ -73,7 +73,7 @@ public:
     QSpacerItem *verticalSpacer;
     QWidget *graphTab;
     QGridLayout *gridLayout_5;
-    QGridLayout *graphLayout;
+    QVBoxLayout *graphLayout;
     QToolBar *mainToolBar;
     QMenuBar *menuBar;
     QMenu *menuCalls;
@@ -260,7 +260,7 @@ public:
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        graphLayout = new QGridLayout();
+        graphLayout = new QVBoxLayout();
         graphLayout->setSpacing(6);
         graphLayout->setObjectName(QString::fromUtf8("graphLayout"));
 

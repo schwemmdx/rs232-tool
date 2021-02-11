@@ -1,5 +1,7 @@
 #include "osziview.h"
 #include "ui_osziview.h"
+
+#include <QDebug>
 #include "mainwindow.h"
 
 OsziView::OsziView(QWidget *parent) :
@@ -16,6 +18,7 @@ OsziView::OsziView(QWidget *parent) :
     this->chart->setAnimationDuration(50);
     this->chart->legend()->hide();
 
+    this->chart->setAcceptHoverEvents(true);
     this->chart->setPlotAreaBackgroundVisible(true);
 
     this->series->setVisible(true);
@@ -78,3 +81,17 @@ void OsziView::addValue(QString parsedReadCommand)
 
 
 
+
+void OsziView::on_yValueTypeBox_currentIndexChanged(const QString &arg1)
+{
+    switch(ui->yValueTypeBox->currentIndex())
+    {
+        case 0:
+        this->axisY->setLabelFormat("%d");
+        break;
+        case 1:
+        this->axisY->setLabelFormat("%x");
+        break;
+    }
+    this->chartView->update();
+}

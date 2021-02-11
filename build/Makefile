@@ -298,7 +298,7 @@ TARGET        = bin/rs232-tool_0.1.1_dlr
 first: all
 ####### Build rules
 
-bin/rs232-tool_0.1.1_dlr: ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_protocolEdit.h ui_settingsdialog.h $(OBJECTS)  
+bin/rs232-tool_0.1.1_dlr: ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_settingsdialog.h $(OBJECTS)  
 	@test -d bin/ || mkdir -p bin/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -715,7 +715,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents /opt/Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../dlrdialog.h ../listentry.h ../mainwindow.h ../osziview.h ../readingthread.h ../settingsdialog.h ../writingthread.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../dlrdialog.cpp ../listentry.cpp ../main.cpp ../mainwindow.cpp ../osziview.cpp ../readingthread.cpp ../settingsdialog.cpp ../writingthread.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../dlrdialog.ui ../mainwindow.ui ../osziview.ui ../protocolEdit.ui ../settingsdialog.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../dlrdialog.ui ../mainwindow.ui ../osziview.ui ../settingsdialog.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1039,6 +1039,8 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		moc_predefs.h \
@@ -1422,6 +1424,8 @@ moc_settingsdialog.cpp: ../settingsdialog.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		moc_predefs.h \
@@ -1498,9 +1502,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_protocolEdit.h ui_settingsdialog.h
+compiler_uic_make_all: ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_settingsdialog.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_protocolEdit.h ui_settingsdialog.h
+	-$(DEL_FILE) ui_dlrdialog.h ui_mainwindow.h ui_osziview.h ui_settingsdialog.h
 ui_dlrdialog.h: ../dlrdialog.ui \
 		/opt/Qt/5.15.2/gcc_64/bin/uic
 	/opt/Qt/5.15.2/gcc_64/bin/uic ../dlrdialog.ui -o ui_dlrdialog.h
@@ -1512,10 +1516,6 @@ ui_mainwindow.h: ../mainwindow.ui \
 ui_osziview.h: ../osziview.ui \
 		/opt/Qt/5.15.2/gcc_64/bin/uic
 	/opt/Qt/5.15.2/gcc_64/bin/uic ../osziview.ui -o ui_osziview.h
-
-ui_protocolEdit.h: ../protocolEdit.ui \
-		/opt/Qt/5.15.2/gcc_64/bin/uic
-	/opt/Qt/5.15.2/gcc_64/bin/uic ../protocolEdit.ui -o ui_protocolEdit.h
 
 ui_settingsdialog.h: ../settingsdialog.ui \
 		/opt/Qt/5.15.2/gcc_64/bin/uic
@@ -1725,6 +1725,7 @@ dlrdialog.o: ../dlrdialog.cpp ../dlrdialog.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCore/QVector
@@ -1943,6 +1944,8 @@ main.o: ../main.cpp ../mainwindow.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QApplication \
@@ -2118,6 +2121,8 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		ui_mainwindow.h \
@@ -2175,8 +2180,6 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QToolBar \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qtoolbar.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QVBoxLayout \
-		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
-		../osziview.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QFileDialog \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qfiledialog.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCore/qdir.h \
@@ -2352,7 +2355,29 @@ osziview.o: ../osziview.cpp ../osziview.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qlineedit.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtGui/qtextcursor.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtGui/qtextformat.h \
-		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QSpacerItem
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QSpacerItem \
+		../mainwindow.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QMainWindow \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qmainwindow.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtSerialPort/QSerialPort \
+		/opt/Qt/5.15.2/gcc_64/include/QtSerialPort/qserialport.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../settingsdialog.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QDialog \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/qdialog.h \
+		../dlrdialog.h \
+		../readingthread.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/QMutex \
+		../writingthread.h \
+		../listentry.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt/5.15.2/gcc_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o osziview.o ../osziview.cpp
 
 readingthread.o: ../readingthread.cpp ../readingthread.h \
@@ -2593,6 +2618,8 @@ settingsdialog.o: ../settingsdialog.cpp ../settingsdialog.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qlineseries.h \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QXYSeries \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qxyseries.h \
+		../osziview.h \
+		/opt/Qt/5.15.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/QValueAxis \
 		/opt/Qt/5.15.2/gcc_64/include/QtCharts/qvalueaxis.h \
 		ui_settingsdialog.h \

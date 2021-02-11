@@ -14,7 +14,7 @@
    <string>RS 232 Tool</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="rs232_ressources.qrc">
+   <iconset>
     <normaloff>:/imgs/images/icons8-rs-232-male-48.png</normaloff>:/imgs/images/icons8-rs-232-male-48.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -131,7 +131,7 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="rs232_ressources.qrc">
+                <iconset>
                  <normaloff>:/imgs/images/forward.png</normaloff>:/imgs/images/forward.png</iconset>
                </property>
                <property name="flat">
@@ -184,7 +184,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="graphLayout"/>
+         <layout class="QVBoxLayout" name="graphLayout"/>
         </item>
        </layout>
       </widget>
@@ -309,7 +309,7 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
+    <iconset>
      <normaloff>:/imgs/images/icons8-usb-connected-48.png</normaloff>:/imgs/images/icons8-usb-connected-48.png</iconset>
    </property>
    <property name="text">
@@ -324,7 +324,7 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
+    <iconset>
      <normaloff>:/imgs/images/icons8-usb-disconnected-48.png</normaloff>:/imgs/images/icons8-usb-disconnected-48.png</iconset>
    </property>
    <property name="text">
@@ -339,7 +339,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
+    <iconset>
      <normaloff>:/imgs/images/icons8-services-48.png</normaloff>:/imgs/images/icons8-services-48.png</iconset>
    </property>
    <property name="text">
@@ -354,7 +354,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
+    <iconset>
      <normaloff>:/imgs/images/icons8-clear-symbol-48.png</normaloff>:/imgs/images/icons8-clear-symbol-48.png</iconset>
    </property>
    <property name="text">
@@ -442,7 +442,7 @@
   </action>
   <action name="actionStart_DLR_Control">
    <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
+    <iconset>
      <normaloff>:/imgs/images/dlr_logo.png</normaloff>:/imgs/images/dlr_logo.png</iconset>
    </property>
    <property name="text">
@@ -451,8 +451,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="rs232_ressources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
