@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>RS232 Tool</Name>
+    <Version>0.1.0</Version>
+    <Title>RS232 Tool Installer</Title>
+    <Publisher>Sven Prigann</Publisher>
+    <StartMenuDir>SP Tools</StartMenuDir>
+    <TargetDir>@HomeDir@/SPTools</TargetDir>
+</Installer>

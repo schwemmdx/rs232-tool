@@ -73,7 +73,7 @@
 #include <QtCharts/QLineSeries>
 #include <QValueAxis>
 
-#include <yaml-cpp/yaml.h>
+//#include "yaml-cpp/yaml.h"
 #include <string>
 
 
@@ -280,7 +280,8 @@ void MainWindow::on_actionLoad_triggered()
 
 
 /*YAML READING*/
-    try {
+ /*   try {
+
         YAML::Node config = YAML::LoadFile(fileName.toStdString());
         QString protocol_name = QString::fromStdString(config["name"].as<std::string>());
         QString protocol_ver = QString::fromStdString(config["version"].as<std::string>());
@@ -300,9 +301,7 @@ void MainWindow::on_actionLoad_triggered()
         QMessageBox::warning(this, tr("YAML ERROR!"),
                               tr("<b>Error while reading YAML file:</b><p>")+buf);
 
-    }
-
-
+    }*/
 
 }
 

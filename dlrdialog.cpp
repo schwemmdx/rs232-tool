@@ -9,6 +9,12 @@
 #include <QVector>
 #include <math.h>
 
+
+#ifdef Q_OS_WIN
+    #include <chrono>
+    #include <thread>
+#endif
+
 DlrDialog::DlrDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlrDialog)
@@ -175,7 +181,7 @@ void DlrDialog::delay(int ms)
 
 
     #ifdef Q_OS_WIN
-        Sleep(uint(ms));
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
     #else
         struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
         nanosleep(&ts, NULL);

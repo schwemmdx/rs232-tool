@@ -3,6 +3,8 @@ QT += widgets serialport charts
 greaterThan(QT_MAJOR_VERSION, 4):
 
 CONFIG += c++17
+
+
 VERSION = 0.1.1
 PLUGINS = dlr
 QT_PROJECT_NAME = rs232-tool
@@ -46,4 +48,7 @@ DESTDIR = ./bin
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += yaml-cpp # super crappy !
+
+
+
 
