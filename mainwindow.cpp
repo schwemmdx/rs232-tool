@@ -77,15 +77,12 @@
 
 MainWindow::MainWindow()
     : m_ui(new Ui::MainWindow)
-    , m_status(new QLabel)
     , m_serial(new QSerialPort(this))
     , readingThread(m_serial)
     , writingThread(m_serial)
-
 {
 
   m_ui->setupUi(this);
-
   setCentralWidget(m_ui->tabWidget);
 
   m_settings = new SettingsDialog(this);
@@ -97,7 +94,6 @@ MainWindow::MainWindow()
   m_ui->actionQuit->setEnabled(true);
   m_ui->actionConfigure->setEnabled(true);
   m_ui->actionStart_DLR_Control->setEnabled(false);
-  m_ui->statusBar->addWidget(m_status);
 
   this->primaryOszi = new OsziView(this);
   this->m_ui->graphLayout->addWidget(this->primaryOszi);
@@ -223,7 +219,7 @@ void MainWindow::initActionsConnections()
 
 void MainWindow::showStatusMessage(const QString & message)
 {
-  m_status->setText(message);
+  m_ui->statusBar->showMessage(message);
 }
 
 void MainWindow::on_txSendField_returnPressed()
