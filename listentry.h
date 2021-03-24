@@ -1,19 +1,18 @@
 #ifndef LISTENTRY_H
 #define LISTENTRY_H
 
-#include <QString>
 #include <QDateTime>
-
+#include <QString>
 
 class ListEntry : QString
 {
 
 public:
-    ListEntry();
-    QString getEnty(QString);
+  ListEntry();
+  QString getEnty(QString);
 
 private:
-   QDateTime timeStamp;
+  QDateTime timeStamp;
 };
 
-#endif // LISTENTRY_H
+#endif  // LISTENTRY_H
