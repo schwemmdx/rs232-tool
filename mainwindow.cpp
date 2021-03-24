@@ -75,9 +75,8 @@
 //#include "yaml-cpp/yaml.h"
 #include <string>
 
-MainWindow::MainWindow(QWidget * parent)
-    : QMainWindow(parent)
-    , m_ui(new Ui::MainWindow)
+MainWindow::MainWindow()
+    : m_ui(new Ui::MainWindow)
     , m_status(new QLabel)
     , m_serial(new QSerialPort(this))
     , readingThread(m_serial)
