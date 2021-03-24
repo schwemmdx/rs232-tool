@@ -77,31 +77,19 @@
 
 MainWindow::MainWindow()
     : m_ui(new Ui::MainWindow)
-    , m_serial(new QSerialPort(this))
-    , readingThread(m_serial)
-    , writingThread(m_serial)
 {
-
   m_ui->setupUi(this);
   setCentralWidget(m_ui->tabWidget);
 
-  m_settings = new SettingsDialog(this);
-
-  this->dlrDlg = new DlrDialog();
-
-  m_ui->actionConnect->setEnabled(true);
-  m_ui->actionDisconnect->setEnabled(false);
-  m_ui->actionQuit->setEnabled(true);
-  m_ui->actionConfigure->setEnabled(true);
-  m_ui->actionStart_DLR_Control->setEnabled(false);
+  dlrDlg = new DlrDialog();
 
   this->primaryOszi = new OsziView(this);
   this->m_ui->graphLayout->addWidget(this->primaryOszi);
 
   initActionsConnections();
 
-  connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
-  connect(m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
+  connect(&m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
+  connect(&m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
   connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
   connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
   connect(this->dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
@@ -113,7 +101,6 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-  // delete m_settings;
   delete m_ui;
 }
 
@@ -121,15 +108,15 @@ MainWindow::~MainWindow()
 void MainWindow::openSerialPort()
 {
 
-  SettingsDialog::Settings p = m_settings->settings();
-  m_serial->setPortName(p.name);
-  m_serial->setBaudRate(p.baudRate);
-  m_serial->setDataBits(p.dataBits);
-  m_serial->setParity(p.parity);
-  m_serial->setStopBits(p.stopBits);
-  m_serial->setFlowControl(p.flowControl);
+  SettingsDialog::Settings p = m_settings.settings();
+  m_serial.setPortName(p.name);
+  m_serial.setBaudRate(p.baudRate);
+  m_serial.setDataBits(p.dataBits);
+  m_serial.setParity(p.parity);
+  m_serial.setStopBits(p.stopBits);
+  m_serial.setFlowControl(p.flowControl);
 
-  if (m_serial->open(QIODevice::ReadWrite))
+  if (m_serial.open(QIODevice::ReadWrite))
   {
 
     m_ui->actionConnect->setEnabled(false);
@@ -161,8 +148,8 @@ void MainWindow::openSerialPort()
 void MainWindow::closeSerialPort()
 {
   readingThread.stop();
-  if (m_serial->isOpen())
-    m_serial->close();
+  if (m_serial.isOpen())
+    m_serial.close();
   // m_console->setEnabled(false);
   m_ui->actionConnect->setEnabled(true);
   m_ui->actionDisconnect->setEnabled(false);
@@ -203,7 +190,7 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
 {
   if (error == QSerialPort::ResourceError)
   {
-    QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString());
+    QMessageBox::critical(this, tr("Critical Error"), m_serial.errorString());
     closeSerialPort();
   }
 }
@@ -214,7 +201,7 @@ void MainWindow::initActionsConnections()
   connect(m_ui->actionConnect, &QAction::triggered, this, &MainWindow::openSerialPort);
   connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
   connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
-  connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
+  connect(m_ui->actionConfigure, &QAction::triggered, &m_settings, &SettingsDialog::show);
 }
 
 void MainWindow::showStatusMessage(const QString & message)
