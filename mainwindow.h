@@ -11,13 +11,17 @@
 
 #include <QMainWindow>
 #include <QSerialPort>
+#include <QVector>
 
-class MainWindow : public QMainWindow
+class MainWindow
+    : public QMainWindow
+    , Ui::MainWindow
 {
   Q_OBJECT
 
 public:
   MainWindow();
+  ~MainWindow();
 
 signals:
   void newCommandParsed(QString);
@@ -44,9 +48,8 @@ private slots:
   void on_actionStart_DLR_Control_triggered();
 
 private:
-  Ui::MainWindow m_ui{};
+  QVector<OsziView *> oscillatorTabs{};
 
-  OsziView primaryOszi{this};
   SettingsDialog m_settings{this};
   DlrDialog dlrDlg{this};
 
@@ -66,6 +69,10 @@ private:
 
   void initActionsConnections();
   void showStatusMessage(const QString & message);
+
+  void addOscillatorView();
+  void removeOscillatorView(int);
+  void removeAllOscillatorViews();
 };
 
 #endif  // MAINWINDOW_H

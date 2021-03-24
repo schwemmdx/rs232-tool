@@ -24,22 +24,8 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
-      <property name="font">
-       <font>
-        <underline>false</underline>
-       </font>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <property name="elideMode">
-       <enum>Qt::ElideLeft</enum>
-      </property>
       <property name="tabsClosable">
        <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>false</bool>
       </property>
       <widget class="QWidget" name="listTab">
        <attribute name="title">
@@ -178,16 +164,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="graphTab">
-       <attribute name="title">
-        <string>Scope</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="graphLayout"/>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -286,11 +262,6 @@
    <addaction name="menuTools"/>
    <addaction name="menuHelpo"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar">
-   <property name="sizeGripEnabled">
-    <bool>false</bool>
-   </property>
-  </widget>
   <action name="actionAbout">
    <property name="text">
     <string>&amp;About</string>
@@ -372,8 +343,8 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
+    <iconset resource="rs232_ressources.qrc">
+     <normaloff>:/imgs/images/application-exit.png</normaloff>:/imgs/images/application-exit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
