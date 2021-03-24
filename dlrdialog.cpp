@@ -3,7 +3,6 @@
 #include "ui_dlrdialog.h"
 #include "writingthread.h"
 
-#include <mainwindow.h>
 #include <math.h>
 
 #include <QDebug>

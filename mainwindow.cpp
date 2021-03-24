@@ -20,10 +20,7 @@ MainWindow::MainWindow()
   m_ui.setupUi(this);
   setCentralWidget(m_ui.tabWidget);
 
-  dlrDlg = new DlrDialog();
-
-  this->primaryOszi = new OsziView(this);
-  this->m_ui.graphLayout->addWidget(this->primaryOszi);
+  m_ui.graphLayout->addWidget(&primaryOszi);
 
   initActionsConnections();
 
@@ -31,15 +28,11 @@ MainWindow::MainWindow()
   connect(&m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
   connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
   connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
-  connect(this->dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
+  connect(&dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
 
   //![3]
 
   //![4]
-}
-
-MainWindow::~MainWindow()
-{
 }
 
 //! [4]
@@ -93,7 +86,7 @@ void MainWindow::closeSerialPort()
   m_ui.actionConfigure->setEnabled(true);
   m_ui.txSendField->setEnabled(false);
   m_ui.actionStart_DLR_Control->setEnabled(false);
-  this->dlrDlg->hide();
+  this->dlrDlg.hide();
   this->connectionStatus = tr("Disconnected");
   showStatusMessage(this->connectionStatus + "\t" + this->usedProtocol);
 }
@@ -239,6 +232,6 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 void MainWindow::on_actionStart_DLR_Control_triggered()
 {
 
-  this->dlrDlg->move(this->pos().rx() + this->width(), this->pos().ry());
-  this->dlrDlg->show();
+  this->dlrDlg.move(this->pos().rx() + this->width(), this->pos().ry());
+  this->dlrDlg.show();
 }

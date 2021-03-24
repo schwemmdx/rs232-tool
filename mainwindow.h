@@ -3,27 +3,21 @@
 
 #include "dlrdialog.h"
 #include "listentry.h"
+#include "osziview.h"
 #include "readingthread.h"
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
 #include "writingthread.h"
 
-#include <osziview.h>
-
 #include <QMainWindow>
 #include <QSerialPort>
-#include <QValueAxis>
-
-#include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
 
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
 public:
-  explicit MainWindow();
-  ~MainWindow();
+  MainWindow();
 
 signals:
   void newCommandParsed(QString);
@@ -50,14 +44,11 @@ private slots:
   void on_actionStart_DLR_Control_triggered();
 
 private:
-  void initActionsConnections();
-  void showStatusMessage(const QString & message);
-
-  OsziView * primaryOszi = nullptr;
   Ui::MainWindow m_ui{};
 
+  OsziView primaryOszi{this};
   SettingsDialog m_settings{this};
-  DlrDialog * dlrDlg;
+  DlrDialog dlrDlg{this};
 
   QSerialPort m_serial{};
   ReadingThread readingThread{&m_serial};
@@ -70,8 +61,11 @@ private:
   // commandhistory
   QVector<uint8_t> commandHistory;
 
-  QString usedProtocol;
-  QString connectionStatus;
+  QString usedProtocol{};
+  QString connectionStatus{};
+
+  void initActionsConnections();
+  void showStatusMessage(const QString & message);
 };
 
 #endif  // MAINWINDOW_H

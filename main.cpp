@@ -52,18 +52,13 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QStyleFactory>
-
-#include <QtSerialPort/QSerialPort>
-
-#define USE_DLR_PLUGIN 1
 
 int main(int argc, char * argv[])
 {
+  QApplication application{argc, argv};
 
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
+  MainWindow mainWindow{};
+  mainWindow.show();
 
-  return a.exec();
+  return application.exec();
 }

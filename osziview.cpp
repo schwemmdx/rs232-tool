@@ -1,6 +1,5 @@
 #include "osziview.h"
 
-#include "mainwindow.h"
 #include "ui_osziview.h"
 
 #include <QDebug>
