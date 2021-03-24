@@ -1,40 +1,36 @@
 #ifndef WRITINGTHREAD_H
 #define WRITINGTHREAD_H
 
-#include <QThread>
-#include <QtSerialPort/QSerialPort>
 #include <QString>
+#include <QThread>
 
-
-
+#include <QtSerialPort/QSerialPort>
 
 class WritingThread : public QThread
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    WritingThread(QSerialPort *);
-
+  WritingThread(QSerialPort *);
 
 public slots:
-    void run();
-    void stop();
-    void start();
-    void sendData( QString data);
+  void run();
+  void stop();
+  void start();
+  void sendData(QString data);
 
-    //dlr specific
+  // dlr specific
 
-   // void configure(QSerialPort*); // there is no need for this shit ?
+  // void configure(QSerialPort*); // there is no need for this shit ?
 
 signals:
-    void sendSucessful(QString);
-    void error(QString err);
+  void sendSucessful(QString);
+  void error(QString err);
 
 private:
-    char dataForSend;
-    QSerialPort * serialPort;
-    bool threadRunning;
-
+  char dataForSend;
+  QSerialPort * serialPort;
+  bool threadRunning;
 };
 
-#endif // WRITINGTHREAD_H
+#endif  // WRITINGTHREAD_H
