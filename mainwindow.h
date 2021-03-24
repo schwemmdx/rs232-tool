@@ -5,6 +5,7 @@
 #include "listentry.h"
 #include "readingthread.h"
 #include "settingsdialog.h"
+#include "ui_mainwindow.h"
 #include "writingthread.h"
 
 #include <osziview.h>
@@ -15,17 +16,6 @@
 
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
-
-QT_BEGIN_NAMESPACE
-
-class QLabel;
-
-namespace Ui
-{
-  class MainWindow;
-}
-
-QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -64,13 +54,12 @@ private:
   void showStatusMessage(const QString & message);
 
   OsziView * primaryOszi = nullptr;
-  Ui::MainWindow * m_ui = nullptr;
+  Ui::MainWindow m_ui{};
 
   SettingsDialog m_settings{this};
   DlrDialog * dlrDlg;
 
   QSerialPort m_serial{};
-
   ReadingThread readingThread{&m_serial};
   WritingThread writingThread{&m_serial};
 

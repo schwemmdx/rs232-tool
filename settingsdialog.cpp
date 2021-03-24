@@ -27,7 +27,7 @@ SettingsDialog::SettingsDialog(QWidget * parent)
   updateSettings();
 }
 
-SettingsDialog::Settings SettingsDialog::settings()
+SettingsDialog::Settings SettingsDialog::getSettings()
 {
   return m_currentSettings;
 }
