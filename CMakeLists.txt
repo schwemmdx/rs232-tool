@@ -18,6 +18,7 @@ find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt5 COMPONENTS SerialPort REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
+
 add_executable(rs232-tool
     dlrdialog.cpp
     listentry.cpp
@@ -38,3 +39,4 @@ target_link_libraries(rs232-tool Qt5::Charts)
 target_link_libraries(rs232-tool Qt5::Core)
 target_link_libraries(rs232-tool Qt5::SerialPort)
 target_link_libraries(rs232-tool Qt5::Widgets)
+target_link_libraries(rs232-tool yaml-cpp)

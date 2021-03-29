@@ -7,6 +7,7 @@
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
 #include "writingthread.h"
+#include "yaml-cpp/yaml.h"
 
 #include <QFileDialog>
 #include <QInputDialog>
@@ -14,8 +15,6 @@
 #include <QStatusBar>
 #include <QString>
 #include <QVector>
-
-//#include "yaml-cpp/yaml.h"
 
 MainWindow::MainWindow()
 {
@@ -173,33 +172,31 @@ void MainWindow::on_actionClear_triggered()
 
 void MainWindow::on_actionLoad_triggered()
 {
-  // opens a filedialog for loading a yaml file
+
   QString fileName =
       QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
 
   /*YAML READING*/
-  /*   try {
+  try
+  {
 
-         YAML::Node config = YAML::LoadFile(fileName.toStdString());
-         QString protocol_name = QString::fromStdString(config["name"].as<std::string>());
-         QString protocol_ver = QString::fromStdString(config["version"].as<std::string>());
-         QString protocol_0 = QString::fromStdString(config["0x0"].as<std::string>());
-         QString protocol_1 = QString::fromStdString(config["0x1"].as<std::string>());
-         QString protocol_10 = QString::fromStdString(config["0xa"].as<std::string>());
-         QString protocol_11 = QString::fromStdString(config["0xb"].as<std::string>());
+    YAML::Node config = YAML::LoadFile(fileName.toStdString());
+    QString protocol_name = QString::fromStdString(config["name"].as<std::string>());
+    QString protocol_ver = QString::fromStdString(config["version"].as<std::string>());
+    QString protocol_0 = QString::fromStdString(config["0x0"].as<std::string>());
+    QString protocol_1 = QString::fromStdString(config["0x1"].as<std::string>());
+    QString protocol_10 = QString::fromStdString(config["0xa"].as<std::string>());
+    QString protocol_11 = QString::fromStdString(config["0xb"].as<std::string>());
 
-         this->usedProtocol = QString((tr("Using <b>%1</b> - Protocol  Version:<b> %2</b>").arg(protocol_name).arg(protocol_ver)));
-          showStatusMessage(this->connectionStatus+"\t"+this->usedProtocol);
+    this->usedProtocol = QString((tr("Using %1 - Protocol  Version: %2").arg(protocol_name).arg(protocol_ver)));
+    showStatusMessage(this->connectionStatus + "\t" + this->usedProtocol);
+  }
 
-     }
-
-     catch(const YAML::ParserException& ex)
-     {
-         QString buf = QString::fromStdString(ex.what());
-         QMessageBox::warning(this, tr("YAML ERROR!"),
-                               tr("<b>Error while reading YAML file:</b><p>")+buf);
-
-     }*/
+  catch (const YAML::ParserException & ex)
+  {
+    QString buf = QString::fromStdString(ex.what());
+    QMessageBox::warning(this, tr("YAML ERROR!"), tr("<b>Error while reading YAML file:</b><p>") + buf);
+  }
 }
 
 void MainWindow::addOscillatorView()
