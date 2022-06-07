@@ -1,7 +1,6 @@
 ﻿
 #include "mainwindow.h"
 
-#include "dlrdialog.h"
 #include "listentry.h"
 #include "osziview.h"
 #include "readingthread.h"

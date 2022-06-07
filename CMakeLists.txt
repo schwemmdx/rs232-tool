@@ -20,7 +20,6 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 
 add_executable(rs232-tool
-    dlrdialog.cpp
     listentry.cpp
     main.cpp
     mainwindow.cpp
