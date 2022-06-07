@@ -35,7 +35,6 @@
            <widget class="QGroupBox" name="groupBox">
             <property name="font">
              <font>
-              <weight>50</weight>
               <bold>false</bold>
               <underline>false</underline>
               <kerning>false</kerning>
@@ -95,7 +94,6 @@
            <widget class="QGroupBox" name="groupBox_2">
             <property name="font">
              <font>
-              <weight>50</weight>
               <bold>false</bold>
               <underline>false</underline>
               <kerning>false</kerning>
@@ -105,7 +103,7 @@
              <string>Sending</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="1">
+             <item row="1" column="2">
               <widget class="QPushButton" name="sendBtn">
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
@@ -122,10 +120,10 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0" colspan="2">
+             <item row="0" column="1" colspan="2">
               <widget class="QListWidget" name="txList"/>
              </item>
-             <item row="1" column="0">
+             <item row="1" column="1">
               <widget class="QLineEdit" name="txSendField">
                <property name="enabled">
                 <bool>false</bool>
@@ -133,7 +131,6 @@
                <property name="font">
                 <font>
                  <family>Source Code Pro</family>
-                 <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
                  <kerning>false</kerning>
@@ -187,7 +184,6 @@
    <addaction name="actionConnect"/>
    <addaction name="actionDisconnect"/>
    <addaction name="actionClear"/>
-   <addaction name="actionStart_DLR_Control"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -195,7 +191,7 @@
      <x>0</x>
      <y>0</y>
      <width>1015</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">
@@ -206,7 +202,6 @@
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
-    <addaction name="actionStart_DLR_Control"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -400,18 +395,6 @@
   <action name="actionNew_Graph">
    <property name="text">
     <string>Add</string>
-   </property>
-  </action>
-  <action name="actionStart_DLR_Control">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="rs232_ressources.qrc">
-     <normaloff>:/imgs/images/dlr_logo.png</normaloff>:/imgs/images/dlr_logo.png</iconset>
-   </property>
-   <property name="text">
-    <string>DLR Plugin </string>
    </property>
   </action>
  </widget>

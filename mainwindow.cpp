@@ -1,4 +1,5 @@
-﻿#include "mainwindow.h"
+﻿
+#include "mainwindow.h"
 
 #include "dlrdialog.h"
 #include "listentry.h"
@@ -7,7 +8,7 @@
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
 #include "writingthread.h"
-#include "yaml-cpp/yaml.h"
+//#include "yaml-cpp/yaml.h"
 
 #include <QFileDialog>
 #include <QInputDialog>
@@ -31,7 +32,7 @@ MainWindow::MainWindow()
 
   connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
   connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
-  connect(&dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
+ // connect(&dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
 
   //![3]
 
@@ -58,7 +59,7 @@ void MainWindow::openSerialPort()
     actionConnect->setEnabled(false);
     actionDisconnect->setEnabled(true);
     actionConfigure->setEnabled(false);
-    actionStart_DLR_Control->setEnabled(true);
+
     txSendField->setEnabled(true);
 
     readingThread.start();
@@ -93,8 +94,7 @@ void MainWindow::closeSerialPort()
   actionDisconnect->setEnabled(false);
   actionConfigure->setEnabled(true);
   txSendField->setEnabled(false);
-  actionStart_DLR_Control->setEnabled(false);
-  this->dlrDlg.hide();
+
   this->connectionStatus = tr("Disconnected");
   showStatusMessage(this->connectionStatus + "\t" + this->usedProtocol);
 }
@@ -173,10 +173,11 @@ void MainWindow::on_actionClear_triggered()
 void MainWindow::on_actionLoad_triggered()
 {
 
-  QString fileName =
-      QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
+  // QString fileName =
+  //   QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
 
   /*YAML READING*/
+  /*
   try
   {
 
@@ -197,6 +198,7 @@ void MainWindow::on_actionLoad_triggered()
     QString buf = QString::fromStdString(ex.what());
     QMessageBox::warning(this, tr("YAML ERROR!"), tr("<b>Error while reading YAML file:</b><p>") + buf);
   }
+  */
 }
 
 void MainWindow::addOscillatorView()
@@ -255,9 +257,10 @@ void MainWindow::on_tabWidget_tabBarDoubleClicked(int index)
     }
   }
 }
-
+/*
 void MainWindow::on_actionStart_DLR_Control_triggered()
 {
   dlrDlg.move(this->pos().rx() + this->width(), this->pos().ry());
   dlrDlg.show();
 }
+*/

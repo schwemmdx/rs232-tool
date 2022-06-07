@@ -14,7 +14,6 @@ DEFINES += WITH_DLR="0"
 
 
 SOURCES += \
-    dlrdialog.cpp \
     listentry.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,7 +23,6 @@ SOURCES += \
     writingthread.cpp
 
 HEADERS += \
-    dlrdialog.h \
     listentry.h \
     mainwindow.h \
     osziview.h \
@@ -33,7 +31,6 @@ HEADERS += \
     writingthread.h
 
 FORMS += \
-    dlrdialog.ui \
     mainwindow.ui \
     osziview.ui \
     settingsdialog.ui

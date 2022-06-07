@@ -165,7 +165,7 @@ void DlrDialog::delay(int ms)
 {
 
 #ifdef Q_OS_WIN
-  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+  // std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 #else
   struct timespec ts = {ms / 1000, (ms % 1000) * 1000 * 1000};
   nanosleep(&ts, NULL);

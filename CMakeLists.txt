@@ -29,7 +29,6 @@ add_executable(rs232-tool
     settingsdialog.cpp
     writingthread.cpp
     rs232_ressources.qrc
-    dlrdialog.ui
     mainwindow.ui
     osziview.ui
     settingsdialog.ui
@@ -39,4 +38,4 @@ target_link_libraries(rs232-tool Qt5::Charts)
 target_link_libraries(rs232-tool Qt5::Core)
 target_link_libraries(rs232-tool Qt5::SerialPort)
 target_link_libraries(rs232-tool Qt5::Widgets)
-target_link_libraries(rs232-tool yaml-cpp)
+#target_link_libraries(rs232-tool yaml-cpp)

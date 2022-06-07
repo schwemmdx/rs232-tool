@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "dlrdialog.h"
+//#include "dlrdialog.h"
 #include "listentry.h"
 #include "osziview.h"
 #include "readingthread.h"
@@ -45,13 +45,12 @@ private slots:
 
   void on_tabWidget_tabCloseRequested(int index);
 
-  void on_actionStart_DLR_Control_triggered();
 
 private:
   QVector<OsziView *> oscillatorTabs{};
 
   SettingsDialog m_settings{this};
-  DlrDialog dlrDlg{this};
+
 
   QSerialPort m_serial{};
   ReadingThread readingThread{&m_serial};
