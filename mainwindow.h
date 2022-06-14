@@ -8,6 +8,9 @@
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
 #include "writingthread.h"
+#include "loopdialog.h"
+
+
 
 #include <QMainWindow>
 #include <QSerialPort>
@@ -25,6 +28,7 @@ public:
 
 signals:
   void newCommandParsed(QString);
+
 private slots:
   void openSerialPort();
   void closeSerialPort();
@@ -41,6 +45,7 @@ private slots:
 
   void on_actionNew_Graph_triggered();
 
+
   void on_tabWidget_tabBarDoubleClicked(int index);
 
   void on_tabWidget_tabCloseRequested(int index);
@@ -50,6 +55,7 @@ private:
   QVector<OsziView *> oscillatorTabs{};
 
   SettingsDialog m_settings{this};
+  LoopDialog m_loopDialog{this};
 
 
   QSerialPort m_serial{};

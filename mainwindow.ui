@@ -46,6 +46,14 @@
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="0" column="0" colspan="5">
               <widget class="QListWidget" name="rxList">
+               <property name="font">
+                <font>
+                 <family>Source Code Pro</family>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                 <kerning>false</kerning>
+                </font>
+               </property>
                <property name="dragEnabled">
                 <bool>false</bool>
                </property>
@@ -121,7 +129,16 @@
               </widget>
              </item>
              <item row="0" column="1" colspan="2">
-              <widget class="QListWidget" name="txList"/>
+              <widget class="QListWidget" name="txList">
+               <property name="font">
+                <font>
+                 <family>Source Code Pro</family>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                 <kerning>false</kerning>
+                </font>
+               </property>
+              </widget>
              </item>
              <item row="1" column="1">
               <widget class="QLineEdit" name="txSendField">
@@ -135,6 +152,9 @@
                  <underline>false</underline>
                  <kerning>false</kerning>
                 </font>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -184,6 +204,7 @@
    <addaction name="actionConnect"/>
    <addaction name="actionDisconnect"/>
    <addaction name="actionClear"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -238,10 +259,19 @@
      <string>Scope</string>
     </property>
     <addaction name="actionNew_Graph"/>
+    <addaction name="actionPreferences"/>
+   </widget>
+   <widget class="QMenu" name="menuActions">
+    <property name="title">
+     <string>Actions</string>
+    </property>
+    <addaction name="actionLoop_Command"/>
+    <addaction name="actionExecute_Script"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuProtocol"/>
    <addaction name="menuGraph"/>
+   <addaction name="menuActions"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelpo"/>
   </widget>
@@ -395,6 +425,24 @@
   <action name="actionNew_Graph">
    <property name="text">
     <string>Add</string>
+   </property>
+  </action>
+  <action name="actionLoop_Command">
+   <property name="text">
+    <string>Loop Commands ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionExecute_Script">
+   <property name="text">
+    <string>Execute Script ...</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences...</string>
    </property>
   </action>
  </widget>

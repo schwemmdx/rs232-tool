@@ -15,6 +15,7 @@ DEFINES += WITH_DLR="0"
 
 SOURCES += \
     listentry.cpp \
+    loopdialog.cpp \
     main.cpp \
     mainwindow.cpp \
     osziview.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     listentry.h \
+    loopdialog.h \
     mainwindow.h \
     osziview.h \
     readingthread.h \
@@ -31,6 +33,7 @@ HEADERS += \
     writingthread.h
 
 FORMS += \
+    loopdialog.ui \
     mainwindow.ui \
     osziview.ui \
     settingsdialog.ui

@@ -7,6 +7,7 @@
 #include "settingsdialog.h"
 #include "ui_mainwindow.h"
 #include "writingthread.h"
+#include "loopdialog.h"
 //#include "yaml-cpp/yaml.h"
 
 #include <QFileDialog>
@@ -139,6 +140,7 @@ void MainWindow::initActionsConnections()
   connect(actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
   connect(actionQuit, &QAction::triggered, this, &MainWindow::close);
   connect(actionConfigure, &QAction::triggered, &m_settings, &SettingsDialog::show);
+  connect(actionLoop_Command,&QAction::triggered,&this->m_loopDialog,&LoopDialog::show);
 }
 
 void MainWindow::showStatusMessage(const QString & message)
@@ -149,7 +151,7 @@ void MainWindow::showStatusMessage(const QString & message)
 void MainWindow::on_txSendField_returnPressed()
 {
 
-  this->writingThread.sendData(QString::number(txSendField->text().toInt(nullptr, 0)));
+  this->writingThread.sendData(QString(txSendField->text()));
   // txSendField->text()
 }
 

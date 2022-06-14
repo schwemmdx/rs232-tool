@@ -1,6 +1,7 @@
 #include "writingthread.h"
 
 #include <QThread>
+#include <QDebug>
 
 WritingThread::WritingThread(QSerialPort * serialPort)
     : QThread()
@@ -25,7 +26,17 @@ void WritingThread::start()
 
 void WritingThread::sendData(QString stringCmd)
 {
-  if (this->serialPort->putChar(stringCmd.toUInt()))
+    bool suceeded = true;
+    for(auto &ch : stringCmd)
+    {
+        qDebug() << "latin: " << ch.toLatin1()<< " raw: " << ch<<"\n";
+        if(!this->serialPort->putChar(ch.toLatin1()))
+        {
+            suceeded = false;
+        }
+    }
+
+  if (suceeded)
   {
     emit WritingThread::sendSucessful(stringCmd);
   }
