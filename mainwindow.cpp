@@ -8,6 +8,8 @@
 #include "ui_mainwindow.h"
 #include "writingthread.h"
 #include "loopdialog.h"
+#include "gamepad_dialog.h"
+
 //#include "yaml-cpp/yaml.h"
 
 #include <QFileDialog>
@@ -114,7 +116,7 @@ void MainWindow::addWriteData(QString writtenData)
 //! [7]
 void MainWindow::addReadData()
 {
-  this->parsedReadCommand = QString::number(this->readingThread.getLastCommand());
+  this->parsedReadCommand = this->readingThread.getLastCommand();
   emit newCommandParsed(this->parsedReadCommand);
   this->lastCmd->setText(this->parsedReadCommand);
   this->parsedReadCommand = this->timeStamp.getEnty(this->parsedReadCommand);
@@ -141,6 +143,7 @@ void MainWindow::initActionsConnections()
   connect(actionQuit, &QAction::triggered, this, &MainWindow::close);
   connect(actionConfigure, &QAction::triggered, &m_settings, &SettingsDialog::show);
   connect(actionLoop_Command,&QAction::triggered,&this->m_loopDialog,&LoopDialog::show);
+  connect(actionGamepad,&QAction::triggered,&this->m_gamepad,&Gamepad_dialog::show);
 }
 
 void MainWindow::showStatusMessage(const QString & message)

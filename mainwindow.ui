@@ -212,7 +212,7 @@
      <x>0</x>
      <y>0</y>
      <width>1015</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">
@@ -263,10 +263,18 @@
    </widget>
    <widget class="QMenu" name="menuActions">
     <property name="title">
-     <string>Actions</string>
+     <string>Extras</string>
     </property>
+    <widget class="QMenu" name="menuAlternative_Input_Dev">
+     <property name="title">
+      <string>Alternative Input Dev</string>
+     </property>
+     <addaction name="actionGamepad"/>
+     <addaction name="actionKeyboard"/>
+    </widget>
     <addaction name="actionLoop_Command"/>
     <addaction name="actionExecute_Script"/>
+    <addaction name="menuAlternative_Input_Dev"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuProtocol"/>
@@ -443,6 +451,19 @@
   <action name="actionPreferences">
    <property name="text">
     <string>Preferences...</string>
+   </property>
+  </action>
+  <action name="actionGamepad">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Gamepad</string>
+   </property>
+  </action>
+  <action name="actionKeyboard">
+   <property name="text">
+    <string>Keyboard</string>
    </property>
   </action>
  </widget>
