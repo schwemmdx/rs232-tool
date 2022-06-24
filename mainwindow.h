@@ -9,6 +9,7 @@
 #include "ui_mainwindow.h"
 #include "writingthread.h"
 #include "loopdialog.h"
+#include "gamepad_dialog.h"
 
 
 
@@ -56,7 +57,7 @@ private:
 
   SettingsDialog m_settings{this};
   LoopDialog m_loopDialog{this};
-
+  Gamepad_dialog m_gamepad{this};
 
   QSerialPort m_serial{};
   ReadingThread readingThread{&m_serial};
