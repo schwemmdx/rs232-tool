@@ -18,7 +18,7 @@ public slots:
   void start();
   void configure(QSerialPort *);
   void read();
-  int getLastCommand();
+  QString getLastCommand(void);
 
 signals:
   void finished();
@@ -26,7 +26,8 @@ signals:
   void recvReady();
 
 private:
-  char readData;
+  char rxChar;
+  QString rxCmd;
   QSerialPort * serialPort;
   bool threadRunning;
 };

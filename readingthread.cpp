@@ -38,14 +38,17 @@ void ReadingThread::configure(QSerialPort * settings)
 
 void ReadingThread::read()
 {
+    this->rxCmd.clear();
+
   while (this->serialPort->bytesAvailable())
   {
-    this->serialPort->read(&this->readData, 1);
-    emit ReadingThread::recvReady();
+      this->serialPort->read(&this->rxChar, 1);
+      this->rxCmd.append(this->rxChar);
   }
+  emit ReadingThread::recvReady();
 }
 
-int ReadingThread::getLastCommand()
+QString ReadingThread::getLastCommand()
 {
-  return (uint8_t)this->readData;
+  return this->rxCmd;
 }

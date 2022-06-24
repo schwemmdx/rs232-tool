@@ -1,4 +1,4 @@
-QT += widgets serialport charts
+QT += widgets serialport charts gamepad
 
 greaterThan(QT_MAJOR_VERSION, 4):
 
@@ -14,6 +14,8 @@ DEFINES += WITH_DLR="0"
 
 
 SOURCES += \
+    gamepad_dialog.cpp \
+    gamepadthread.cpp \
     listentry.cpp \
     loopdialog.cpp \
     main.cpp \
@@ -24,6 +26,8 @@ SOURCES += \
     writingthread.cpp
 
 HEADERS += \
+    gamepad_dialog.h \
+    gamepadthread.h \
     listentry.h \
     loopdialog.h \
     mainwindow.h \
@@ -33,6 +37,7 @@ HEADERS += \
     writingthread.h
 
 FORMS += \
+    gamepad_dialog.ui \
     loopdialog.ui \
     mainwindow.ui \
     osziview.ui \
@@ -47,7 +52,7 @@ DESTDIR = ./bin
 
 
 unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += yaml-cpp # super crappy !
+#unix: PKGCONFIG += yaml-cpp # super crappy !
 
 
 
