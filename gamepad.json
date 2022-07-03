@@ -1,0 +1,107 @@
+{
+    "NAME": "printer_commands",
+    "X": {
+        "cmd": "x pressed ",
+        "misc": []
+    },
+    "Y": {
+        "cmd": "y pressed",
+        "misc": []
+    },
+    "A": {
+        "cmd": "a pressed",
+        "misc": []
+    },
+    "B": {
+        "cmd": "b pressed",
+        "misc": []
+    },
+    "L1": {
+        "cmd": "l1 pressed",
+        "misc": []
+    },
+    "L2": {
+        "cmd": "l2 pressed",
+        "misc": []
+    },
+    "L3": {
+        "cmd": "l3 pressed",
+        "misc": []
+    },
+    "R1": {
+        "cmd": "r1 pressed",
+        "misc": []
+    },
+    "R2": {
+        "cmd": "r2 pressed",
+        "misc": []
+    },
+    "R3": {
+        "cmd": "r3 pressed",
+        "misc": []
+    },
+    "START": {
+        "cmd": "start pressed",
+        "misc": []
+    },
+    "BACK": {
+        "cmd": "option pressed",
+        "misc": []
+    },
+    "KEY_L": {
+        "cmd": "key_l pressed",
+        "misc": []
+    },
+    "KEY_R": {
+        "cmd": "key_r pressed",
+        "misc": []
+    },
+    "KEY_UP": {
+        "cmd": "key_up pressed",
+        "misc": []
+    },
+    "KEY_DOWN": {
+        "cmd": "key_down pressed",
+        "misc": []
+    },    
+    "ANALOG":
+    {
+        "LEFTSTICK": {
+            "dir_l": {
+                "cmd": "LeftStick l = #",
+                "misc" : []
+            },
+            "dir_r": {
+                "cmd": "LeftStick r = #",
+                "misc": []
+            },
+            "dir_up" : {
+                "cmd": "LeftStick up = #",
+                "misc" : []
+            },
+            "dir_down" : {
+                "cmd": "LeftStick down = #",
+                "misc" : []
+            }
+        },
+        "RIGHTSTICK": {
+            "dir_l": {
+                "cmd": "RightStick l = #",
+                "misc" : []
+            },
+            "dir_r": {
+                "cmd": "RightStick r = #",
+                "misc": []
+            },
+            "dir_up" : {
+                "cmd": "RightStick up = #",
+                "misc" : []
+            },
+            "dir_down" : {
+                "cmd": "RightStick down = #",
+                "misc" : []
+            }
+        }
+}
+
+}
