@@ -35,7 +35,9 @@ MainWindow::MainWindow()
   connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
   connect(&writingThread, &WritingThread::sendSucessful, this, &MainWindow::addWriteData);
   connect(&m_gamepadDialog,&Gamepad_dialog::configChanged,&gamepadThread,&GamepadThread::updateConfig);
-  connect(&gamepadThread,&GamepadThread::sendCmd,this,&MainWindow::addWriteData);
+  connect(&gamepadThread,&GamepadThread::sendCmd,&writingThread, &WritingThread::sendData);
+  connect(&m_loopDialog,&LoopDialog::sendCmd,&writingThread,&WritingThread::sendData);
+
 
 }
 MainWindow::~MainWindow()
@@ -86,7 +88,7 @@ void MainWindow::closeSerialPort()
 {
   readingThread.stop();
   writingThread.stop();
-  gamepadThread.wait();
+  gamepadThread.stop();
 
   if (m_serial.isOpen())
   {
@@ -170,6 +172,8 @@ void MainWindow::showStatusMessage(const QString & message)
 {
   statusBar()->showMessage(message);
 }
+
+
 
 void MainWindow::on_txSendField_returnPressed()
 {

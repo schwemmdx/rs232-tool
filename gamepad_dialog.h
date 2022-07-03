@@ -32,7 +32,7 @@ signals:
 
 private:
     Ui::Gamepad_dialog *ui;
-    int deviceId = -1;
+    int deviceId;
     gamepad_config_t config;
     void updateUiFromConfig(void);
     void updateConfigFromUi(void);

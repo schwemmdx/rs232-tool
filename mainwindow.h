@@ -11,7 +11,7 @@
 #include "loopdialog.h"
 #include "gamepad_dialog.h"
 #include "gamepadthread.h"
-
+#include "gamepadmonitor.h"
 
 
 #include <QMainWindow>

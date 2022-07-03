@@ -1,7 +1,7 @@
 #include "osziview.h"
 
 #include "ui_osziview.h"
-
+#include <QChartView>
 #include <QDebug>
 
 OsziView::OsziView(QWidget * parent)
@@ -12,6 +12,7 @@ OsziView::OsziView(QWidget * parent)
   this->series = new QT_CHARTS_NAMESPACE::QLineSeries;
   this->chart = new QT_CHARTS_NAMESPACE::QChart();
   this->chartView = new QT_CHARTS_NAMESPACE::QChartView(this->chart);
+  this->chartView->setRubberBand(this->chartView->HorizontalRubberBand);
   this->chartView->setRenderHint(QPainter::Antialiasing);
   this->ui->graph_Layout->addWidget(chartView);
   this->chart->setAnimationOptions(QT_CHARTS_NAMESPACE::QChart::SeriesAnimations);

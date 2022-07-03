@@ -52,7 +52,7 @@ DESTDIR = ./bin
 
 
 unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += yaml-cpp # super crappy !
+#unix: PKGCONFIG += yaml-cpp # super crappy !
 
 
 

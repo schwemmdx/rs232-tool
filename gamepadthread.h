@@ -67,23 +67,28 @@ public slots:
     bool abortConnection();
     //void setUsedDevice(int deviceId);
     void updateConfig(gamepad_config_t* newCfg);
+    void stop();
 
 
 signals:
     void connectionLost();
     void sendUpdatedDeviceList(QList<gamepad_t>*);
     void initFailed();
+
     void sendCmd(QString);
 
 
 private:
     QGamepadManager* padManager = QGamepadManager::instance();
     QList<gamepad_t> deviceList;
-    QGamepad usedGamepad;
+    QGamepad *m_gamepad;
+   // QGamepad usedGamepad;
     gamepad_state_t inputState;
     void run(void);
-
+    bool threadRun{false};
     gamepad_config_t config;
+
+    void onButtonA(bool);
 
 
 };

@@ -41,15 +41,16 @@ void Gamepad_dialog::updateDeviceList(QList<gamepad_t> devicesFound)
         for(auto &device: devicesFound)
         {
             //ToDo add DeviceNames from DeviceId
+            qDebug() << "Discovered device ID: " << deviceId;
              this->ui->devicesBox->addItem(device.name);
         }
-        this->deviceId = -1;
+
     }
     else
     {
         this->ui->devicesBox->clear();
         this->ui->devicesBox->addItem("No Device found");
-        this->deviceId = -1;
+
     }
 
 }
@@ -157,6 +158,7 @@ void Gamepad_dialog::saveToFile(void)
 void Gamepad_dialog::applyClicked(void)
 {
     updateConfigFromUi();
+
     emit configChanged(&config);
     this->accept();
 }
@@ -170,11 +172,14 @@ void Gamepad_dialog::updateConfigFromUi()
     config.cmd_buttonL1 = ui->l1->text();
     config.cmd_buttonL2 = ui->l2->text();
     config.cmd_buttonR1 = ui->r1->text();
-    config.cmd_buttonR1 = ui->r2->text();
+    config.cmd_buttonR2 = ui->r2->text();
     config.cmd_buttonLeft = ui->k_l->text();
     config.cmd_buttonRight = ui->k_r->text();
     config.cmd_buttonUp = ui->k_up->text();
     config.cmd_buttonDown = ui->k_dwn->text();
+    config.cmd_buttonStart = ui->start->text();
+    config.cmd_buttonBack = ui->back->text();
+    config.pad.deviceId = 0;
     //TODO: Analog sticks
 
 }
