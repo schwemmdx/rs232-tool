@@ -19,9 +19,6 @@ public slots:
   void start();
   void sendData(QString data);
 
-  // dlr specific
-
-  // void configure(QSerialPort*); // there is no need for this shit ?
 
 signals:
   void sendSucessful(QString);

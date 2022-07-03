@@ -212,7 +212,7 @@
      <x>0</x>
      <y>0</y>
      <width>1015</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">
@@ -246,14 +246,6 @@
     <addaction name="actionInfo"/>
     <addaction name="actionHelp"/>
    </widget>
-   <widget class="QMenu" name="menuProtocol">
-    <property name="title">
-     <string>Protocol</string>
-    </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionLoad"/>
-    <addaction name="actionEdit"/>
-   </widget>
    <widget class="QMenu" name="menuGraph">
     <property name="title">
      <string>Scope</string>
@@ -277,7 +269,6 @@
     <addaction name="menuAlternative_Input_Dev"/>
    </widget>
    <addaction name="menuCalls"/>
-   <addaction name="menuProtocol"/>
    <addaction name="menuGraph"/>
    <addaction name="menuActions"/>
    <addaction name="menuTools"/>
@@ -436,6 +427,9 @@
    </property>
   </action>
   <action name="actionLoop_Command">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Loop Commands ...</string>
    </property>

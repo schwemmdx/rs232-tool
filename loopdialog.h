@@ -15,8 +15,15 @@ public:
     explicit LoopDialog(QWidget *parent = nullptr);
     ~LoopDialog();
 
+signals:
+    void sendCmd(QString);
+
+
 private:
     Ui::LoopDialog *ui;
+    QList<QString> cmdLines;
+    void accept();
+    void parseLines();
 };
 
 #endif // LOOPDIALOG_H

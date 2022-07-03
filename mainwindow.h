@@ -10,12 +10,15 @@
 #include "writingthread.h"
 #include "loopdialog.h"
 #include "gamepad_dialog.h"
+#include "gamepadthread.h"
 
 
 
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QVector>
+#include <QGamepad>
+
 
 class MainWindow
     : public QMainWindow
@@ -39,27 +42,23 @@ private slots:
   void handleError(QSerialPort::SerialPortError error);
   void on_txSendField_returnPressed();
   void on_actionInfo_triggered();
-
   void on_actionClear_triggered();
-
   void on_actionLoad_triggered();
-
   void on_actionNew_Graph_triggered();
-
-
   void on_tabWidget_tabBarDoubleClicked(int index);
-
   void on_tabWidget_tabCloseRequested(int index);
-
+  void on_actionGamepad(void);
 
 private:
-  QVector<OsziView *> oscillatorTabs{};
 
+
+  QVector<OsziView *> oscillatorTabs{};
   SettingsDialog m_settings{this};
   LoopDialog m_loopDialog{this};
-  Gamepad_dialog m_gamepad{this};
+  Gamepad_dialog m_gamepadDialog{this};
 
   QSerialPort m_serial{};
+  GamepadThread gamepadThread{};
   ReadingThread readingThread{&m_serial};
   WritingThread writingThread{&m_serial};
 
@@ -72,6 +71,8 @@ private:
 
   QString usedProtocol{};
   QString connectionStatus{};
+
+  QGamepadManager* padManager = QGamepadManager::instance();
 
   void initActionsConnections();
   void showStatusMessage(const QString & message);

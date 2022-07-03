@@ -9,19 +9,20 @@
 #include "writingthread.h"
 #include "loopdialog.h"
 #include "gamepad_dialog.h"
-
-//#include "yaml-cpp/yaml.h"
+#include "gamepadthread.h"
 
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QStatusBar>
 #include <QString>
+#include <QDebug>
 #include <QVector>
 
 MainWindow::MainWindow()
 {
   statusBar()->showMessage("Disconnected");
+
 
   setupUi(this);
   setCentralWidget(tabWidget);
@@ -31,14 +32,11 @@ MainWindow::MainWindow()
 
   connect(&m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
   connect(&m_serial, &QSerialPort::readyRead, &readingThread, &ReadingThread::read);
-
   connect(&readingThread, &ReadingThread::recvReady, this, &MainWindow::addReadData);
-  connect(&writingThread, SIGNAL(sendSucessful(QString)), this, SLOT(addWriteData(QString)));
- // connect(&dlrDlg, SIGNAL(cmdToSend(QString)), &writingThread, SLOT(sendData(QString)));
+  connect(&writingThread, &WritingThread::sendSucessful, this, &MainWindow::addWriteData);
+  connect(&m_gamepadDialog,&Gamepad_dialog::configChanged,&gamepadThread,&GamepadThread::updateConfig);
+  connect(&gamepadThread,&GamepadThread::sendCmd,this,&MainWindow::addWriteData);
 
-  //![3]
-
-  //![4]
 }
 MainWindow::~MainWindow()
 {
@@ -66,6 +64,8 @@ void MainWindow::openSerialPort()
 
     readingThread.start();
     writingThread.start();
+    gamepadThread.start();
+
     this->connectionStatus = QString(tr("Connected to %1 : %2, %3, %4, %5, %6")
                                          .arg(p.name)
                                          .arg(p.stringBaudRate)
@@ -81,12 +81,13 @@ void MainWindow::openSerialPort()
     showStatusMessage(tr("Open error"));
   }
 }
-//! [4]
 
-//! [5]
 void MainWindow::closeSerialPort()
 {
   readingThread.stop();
+  writingThread.stop();
+  gamepadThread.wait();
+
   if (m_serial.isOpen())
   {
     m_serial.close();
@@ -143,7 +144,26 @@ void MainWindow::initActionsConnections()
   connect(actionQuit, &QAction::triggered, this, &MainWindow::close);
   connect(actionConfigure, &QAction::triggered, &m_settings, &SettingsDialog::show);
   connect(actionLoop_Command,&QAction::triggered,&this->m_loopDialog,&LoopDialog::show);
-  connect(actionGamepad,&QAction::triggered,&this->m_gamepad,&Gamepad_dialog::show);
+  connect(actionGamepad,&QAction::triggered,this,&MainWindow::on_actionGamepad);
+
+}
+
+
+
+void MainWindow::on_actionGamepad()
+{
+    QList<int> devIds = this->padManager->connectedGamepads();
+    QList<gamepad_t> gamePadsFound;
+    gamepad_t buf;
+    for (auto &id: devIds)
+    {
+        buf.deviceId = id;
+        buf.name = this->padManager->gamepadName(id);
+        gamePadsFound.append(buf);
+    }
+
+    this->m_gamepadDialog.updateDeviceList(gamePadsFound);
+    this->m_gamepadDialog.show();
 }
 
 void MainWindow::showStatusMessage(const QString & message)
@@ -177,11 +197,11 @@ void MainWindow::on_actionClear_triggered()
 void MainWindow::on_actionLoad_triggered()
 {
 
-  // QString fileName =
-  //   QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
+   QString fileName =
+   QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
 
   /*YAML READING*/
-  /*
+/*
   try
   {
 
@@ -202,7 +222,7 @@ void MainWindow::on_actionLoad_triggered()
     QString buf = QString::fromStdString(ex.what());
     QMessageBox::warning(this, tr("YAML ERROR!"), tr("<b>Error while reading YAML file:</b><p>") + buf);
   }
-  */
+*/
 }
 
 void MainWindow::addOscillatorView()
@@ -261,10 +281,3 @@ void MainWindow::on_tabWidget_tabBarDoubleClicked(int index)
     }
   }
 }
-/*
-void MainWindow::on_actionStart_DLR_Control_triggered()
-{
-  dlrDlg.move(this->pos().rx() + this->width(), this->pos().ry());
-  dlrDlg.show();
-}
-*/

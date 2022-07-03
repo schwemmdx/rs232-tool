@@ -1,4 +1,4 @@
-QT += widgets serialport charts gamepad
+QT += widgets serialport charts gamepad xml
 
 greaterThan(QT_MAJOR_VERSION, 4):
 
@@ -52,7 +52,7 @@ DESTDIR = ./bin
 
 
 unix: CONFIG += link_pkgconfig
-#unix: PKGCONFIG += yaml-cpp # super crappy !
+unix: PKGCONFIG += yaml-cpp # super crappy !
 
 
 
