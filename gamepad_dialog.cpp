@@ -25,6 +25,7 @@ Gamepad_dialog::Gamepad_dialog(QWidget *parent) :
    connect(ui->saveBtn,&QPushButton::clicked,this,&Gamepad_dialog::saveToFile);
    connect(ui->loadBtn,&QPushButton::clicked,this,&Gamepad_dialog::loadFromFile);
 
+
 }
 
 Gamepad_dialog::~Gamepad_dialog()
@@ -35,23 +36,15 @@ Gamepad_dialog::~Gamepad_dialog()
 
 void Gamepad_dialog::updateDeviceList(QList<gamepad_t> devicesFound)
 {
+    ui->devicesBox->clear();
 
-    if(devicesFound.length() !=0)
+    for(auto &device: devicesFound)
     {
-        for(auto &device: devicesFound)
-        {
-            //ToDo add DeviceNames from DeviceId
-            qDebug() << "Discovered device ID: " << deviceId;
-             this->ui->devicesBox->addItem(device.name);
-        }
+        //ToDo add DeviceNames from DeviceId
 
+         this->ui->devicesBox->addItem(device.name);
     }
-    else
-    {
-        this->ui->devicesBox->clear();
-        this->ui->devicesBox->addItem("No Device found");
 
-    }
 
 }
 
@@ -60,7 +53,9 @@ void Gamepad_dialog::loadFromFile(void)
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-      tr("Open Configuration File"), "./", tr("Gamepad Config Files (*.json)"));
+    tr("Open Configuration File"), "./", tr("Gamepad Config Files (*.json)"));
+    qDebug() << fileName;
+    //QString fileName = "/home/sven/github/rs232-tool/gamepad.json";
     this->ui->configFilePath->setText(fileName);
 
      QString val;
@@ -151,7 +146,54 @@ void Gamepad_dialog::saveToFile(void)
                                                     tr("Save Configuration File"),
                                                     "./", tr("Gamepad Config Files (*.json)"));
 
-    QFile saveFile;
+    QFile saveFile(fileName);
+    updateConfigFromUi();
+    QJsonObject bufferObj;
+    QJsonObject cmdBuffer;
+
+    cmdBuffer.insert("cmd",config.cmd_buttonA);
+    bufferObj.insert("A",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonB);
+    bufferObj.insert("B",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonX);
+    bufferObj.insert("X",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonY);
+    bufferObj.insert("Y",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonL1);
+    bufferObj.insert("L1",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonL2);
+    bufferObj.insert("L2",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonR1);
+    bufferObj.insert("R1",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonR2);
+    bufferObj.insert("R2",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonStart);
+    bufferObj.insert("START",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonBack);
+    bufferObj.insert("BACK",cmdBuffer);
+    bufferObj.insert("NAME",config.name);
+    cmdBuffer.insert("cmd",config.cmd_buttonUp);
+    bufferObj.insert("KEY_UP",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonDown);
+    bufferObj.insert("KEY_DOWN",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonLeft);
+    bufferObj.insert("KEY_LEFT",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonRight);
+    bufferObj.insert("KEY_RIGHT",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonR3);
+    bufferObj.insert("R3",cmdBuffer);
+    cmdBuffer.insert("cmd",config.cmd_buttonL3);
+    bufferObj.insert("L3",cmdBuffer);
+    QJsonDocument doc(bufferObj);
+    QByteArray bytes = doc.toJson( QJsonDocument::Indented);
+
+       if( saveFile.open( QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate ) )
+       {
+           QTextStream iStream(&saveFile);
+           iStream.setCodec( "utf-8" );
+           iStream << bytes;
+           saveFile.close();
+       }
 
 }
 
@@ -180,7 +222,9 @@ void Gamepad_dialog::updateConfigFromUi()
     config.cmd_buttonStart = ui->start->text();
     config.cmd_buttonBack = ui->back->text();
     config.pad.deviceId = 0;
+    config.name = ui->nameLabel->text();
     //TODO: Analog sticks
 
 }
+
 
