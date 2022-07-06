@@ -11,7 +11,7 @@
 #include "loopdialog.h"
 #include "gamepad_dialog.h"
 #include "gamepadthread.h"
-#include "gamepadmonitor.h"
+
 
 
 #include <QMainWindow>
@@ -43,11 +43,13 @@ private slots:
   void on_txSendField_returnPressed();
   void on_actionInfo_triggered();
   void on_actionClear_triggered();
-  void on_actionLoad_triggered();
+
   void on_actionNew_Graph_triggered();
   void on_tabWidget_tabBarDoubleClicked(int index);
   void on_tabWidget_tabCloseRequested(int index);
   void on_actionGamepad(void);
+
+  void on_actionExecute_Script_triggered();
 
 private:
 
@@ -75,6 +77,7 @@ private:
   QGamepadManager* padManager = QGamepadManager::instance();
 
   void initActionsConnections();
+  void refreshGamepadList(void);
   void showStatusMessage(const QString & message);
 
   void addOscillatorView();

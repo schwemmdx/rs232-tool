@@ -37,7 +37,10 @@ MainWindow::MainWindow()
   connect(&m_gamepadDialog,&Gamepad_dialog::configChanged,&gamepadThread,&GamepadThread::updateConfig);
   connect(&gamepadThread,&GamepadThread::sendCmd,&writingThread, &WritingThread::sendData);
   connect(&m_loopDialog,&LoopDialog::sendCmd,&writingThread,&WritingThread::sendData);
-
+  connect(&m_settings,&SettingsDialog::settingsApplied,&readingThread,&ReadingThread::applySettings);
+  connect(&m_gamepadDialog,&Gamepad_dialog::devListRefreshRequest,this,&MainWindow::refreshGamepadList);
+  connect(tabWidget->tabBar(), &QTabBar::tabBarDoubleClicked,this, &MainWindow::on_tabWidget_tabBarDoubleClicked);
+  connect(tabWidget->tabBar(), &QTabBar::tabCloseRequested,this, &MainWindow::on_tabWidget_tabCloseRequested);
 
 }
 MainWindow::~MainWindow()
@@ -56,17 +59,30 @@ void MainWindow::openSerialPort()
   m_serial.setStopBits(p.stopBits);
   m_serial.setFlowControl(p.flowControl);
 
+
+
   if (m_serial.open(QIODevice::ReadWrite))
   {
     actionConnect->setEnabled(false);
     actionDisconnect->setEnabled(true);
     actionConfigure->setEnabled(false);
+    actionExecute_Script->setEnabled(true);
+    actionLoop_Command->setEnabled(true);
+    actionGamepad->setEnabled(true);
+    actionKeyboard->setEnabled(true);
+
 
     txSendField->setEnabled(true);
+
+    readingThread.applySettings(&p);
+    writingThread.applySettings(&p);
 
     readingThread.start();
     writingThread.start();
     gamepadThread.start();
+
+    readingThread.setPriority(QThread::HighestPriority);
+    writingThread.setPriority(QThread::HighPriority);
 
     this->connectionStatus = QString(tr("Connected to %1 : %2, %3, %4, %5, %6")
                                          .arg(p.name)
@@ -99,6 +115,10 @@ void MainWindow::closeSerialPort()
   actionDisconnect->setEnabled(false);
   actionConfigure->setEnabled(true);
   txSendField->setEnabled(false);
+  actionExecute_Script->setEnabled(false);
+  actionLoop_Command->setEnabled(false);
+  actionGamepad->setEnabled(false);
+  actionKeyboard->setEnabled(false);
 
   this->connectionStatus = tr("Disconnected");
   showStatusMessage(this->connectionStatus + "\t" + this->usedProtocol);
@@ -109,9 +129,12 @@ void MainWindow::closeSerialPort()
 void MainWindow::addWriteData(QString writtenData)
 {
 
-  this->parsedWriteCommand = writtenData;
-  this->parsedWriteCommand = this->timeStamp.getEnty(this->parsedWriteCommand);
-  txList->insertItem(0, this->parsedWriteCommand);
+  if(m_settings.getSettings().txType == SettingsDialog::InterpretType::TYPE_STRING)
+  {
+      writtenData = writtenData.remove('\n').remove('\r');
+  }
+  parsedWriteCommand = timeStamp.getEnty(writtenData);
+  txList->insertItem(0,parsedWriteCommand);
   txSendField->clear();
 }
 //! [6]
@@ -119,11 +142,24 @@ void MainWindow::addWriteData(QString writtenData)
 //! [7]
 void MainWindow::addReadData()
 {
-  this->parsedReadCommand = this->readingThread.getLastCommand();
-  emit newCommandParsed(this->parsedReadCommand);
-  this->lastCmd->setText(this->parsedReadCommand);
-  this->parsedReadCommand = this->timeStamp.getEnty(this->parsedReadCommand);
-  this->rxList->insertItem(0, this->parsedReadCommand);
+   QList<QString> rxCmdList;
+  QString cmdBuf;
+  rxCmdList = readingThread.getRecievedCmds();
+  for(auto &cmd: rxCmdList)
+    {
+      if(m_settings.getSettings().rxType == SettingsDialog::InterpretType::TYPE_STRING)
+        {
+            cmd = cmd.remove('\n').remove('\r');
+        }
+
+    emit newCommandParsed(cmd);
+    cmdBuf = cmd;
+    this->lastCmd->setText(cmdBuf);
+    cmdBuf = this->timeStamp.getEnty(cmdBuf);
+    this->rxList->insertItem(0, cmdBuf);
+
+    }
+
 }
 
 //! [7]
@@ -151,20 +187,35 @@ void MainWindow::initActionsConnections()
 }
 
 
-
-void MainWindow::on_actionGamepad()
+void MainWindow::refreshGamepadList(void)
 {
-    QList<int> devIds = this->padManager->connectedGamepads();
+    padManager = QGamepadManager::instance();
+    QList<int> devIds = padManager->connectedGamepads();
+
     QList<gamepad_t> gamePadsFound;
     gamepad_t buf;
-    for (auto &id: devIds)
+    if(!devIds.empty())
     {
-        buf.deviceId = id;
-        buf.name = this->padManager->gamepadName(id);
+        for (auto &id: devIds)
+        {
+            buf.deviceId = id;
+            buf.name = padManager->gamepadName(id);
+            gamePadsFound.append(buf);
+        }
+    }
+    else
+    {
+        buf.name = "No Device Found";
+        buf.deviceId = -1;
         gamePadsFound.append(buf);
     }
 
     this->m_gamepadDialog.updateDeviceList(gamePadsFound);
+}
+
+void MainWindow::on_actionGamepad()
+{
+    refreshGamepadList();
     this->m_gamepadDialog.show();
 }
 
@@ -198,41 +249,14 @@ void MainWindow::on_actionClear_triggered()
   rxList->clear();
 }
 
-void MainWindow::on_actionLoad_triggered()
-{
-
-   QString fileName =
-   QFileDialog::getOpenFileName(this, tr("Open Protocol Description File"), nullptr, tr("Descriptor-Files(*.yml *.yaml);;all Files(*.*)"));
-
-  /*YAML READING*/
-/*
-  try
-  {
-
-    YAML::Node config = YAML::LoadFile(fileName.toStdString());
-    QString protocol_name = QString::fromStdString(config["name"].as<std::string>());
-    QString protocol_ver = QString::fromStdString(config["version"].as<std::string>());
-    QString protocol_0 = QString::fromStdString(config["0x0"].as<std::string>());
-    QString protocol_1 = QString::fromStdString(config["0x1"].as<std::string>());
-    QString protocol_10 = QString::fromStdString(config["0xa"].as<std::string>());
-    QString protocol_11 = QString::fromStdString(config["0xb"].as<std::string>());
-
-    this->usedProtocol = QString((tr("Using %1 - Protocol  Version: %2").arg(protocol_name).arg(protocol_ver)));
-    showStatusMessage(this->connectionStatus + "\t" + this->usedProtocol);
-  }
-
-  catch (const YAML::ParserException & ex)
-  {
-    QString buf = QString::fromStdString(ex.what());
-    QMessageBox::warning(this, tr("YAML ERROR!"), tr("<b>Error while reading YAML file:</b><p>") + buf);
-  }
-*/
-}
 
 void MainWindow::addOscillatorView()
 {
   OsziView * oscillatorView{new OsziView{this}};
+  connect(this,&MainWindow::newCommandParsed,oscillatorView,&OsziView::addValue);
+
   oscillatorTabs.append(oscillatorView);
+
   tabWidget->addTab(oscillatorView, QString("Scope %0").arg(oscillatorTabs.count()));
 }
 
@@ -269,6 +293,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 void MainWindow::on_tabWidget_tabBarDoubleClicked(int index)
 {
+    qDebug() << " double clicked";
   if (index != 0)
   {
     try
@@ -285,3 +310,27 @@ void MainWindow::on_tabWidget_tabBarDoubleClicked(int index)
     }
   }
 }
+
+void MainWindow::on_actionExecute_Script_triggered()
+{
+    QList<QString> listBuffer;
+    QString buffer;
+    QString fileName = QFileDialog::getOpenFileName(this,
+    tr("Open Command Script"), "./", tr("Command Skript (*.txt)"));
+
+    if(!fileName.isEmpty() && !fileName.isNull())
+    {
+        QFile file(fileName);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        buffer = file.readAll();
+        file.close();
+        listBuffer = buffer.split('\n');
+        for(auto &cmd: listBuffer)
+        {
+            qDebug() << cmd;
+        }
+
+    }
+}
+
