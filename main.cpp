@@ -58,8 +58,15 @@ int main(int argc, char * argv[])
   QApplication application{argc, argv};
 
   MainWindow mainWindow{};
-  //application.setStyleSheet("~/github/rs232-tool/darkstyle.css");
-  mainWindow.show();
+  /*
+  QFile file("darkstyle.qss");
+  file.open(QIODevice::ReadOnly | QIODevice::Text);
+  QString content = file.readAll();
+  file.close();
 
+application.setStyleSheet(content);
+
+  */
+  mainWindow.show();
   return application.exec();
 }
