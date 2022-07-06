@@ -1,0 +1,8 @@
+#comment
+.loop
+.sleep 150
+Dimo:init 
+#another comment
+.end
+repo:conf
+.sleep conf
