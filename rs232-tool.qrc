@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/cancel.png</file>
+        <file>images/correct.png</file>
+        <file>images/failed.png</file>
+        <file>images/right-arrow.png</file>
+        <file>images/settings.png</file>
+        <file>images/unplugged.png</file>
+        <file>images/vga-cable.png</file>
+        <file>images/cloud-computing.png</file>
+        <file>images/diskette.png</file>
+        <file>images/file.png</file>
+        <file>images/game-controller.png</file>
+        <file>images/line-chart.png</file>
+        <file>images/logout.png</file>
+        <file>images/plug-in.png</file>
+        <file>images/plug-in_.png</file>
+        <file>images/plug-out.png</file>
+        <file>images/process.png</file>
+        <file>images/serial.png</file>
+        <file>images/trash-bin.png</file>
+        <file>images/data.png</file>
+        <file>images/pcb-board.png</file>
+        <file>images/refresh.png</file>
+        <file>images/load.png</file>
+        <file>images/save.png</file>
+    </qresource>
+</RCC>

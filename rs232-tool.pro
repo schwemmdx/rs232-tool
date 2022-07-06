@@ -5,12 +5,11 @@ greaterThan(QT_MAJOR_VERSION, 4):
 CONFIG += c++17
 
 
-VERSION = 0.1.1
-PLUGINS = dlr
-QT_PROJECT_NAME = rs232-tool
-TARGET = $${QT_PROJECT_NAME}_$${VERSION}_$${PLUGINS}
+VERSION = 0.1.2
 
-DEFINES += WITH_DLR="0"
+QT_PROJECT_NAME = rs232-tool
+TARGET = $${QT_PROJECT_NAME}_$${VERSION}
+
 
 
 SOURCES += \
@@ -22,6 +21,7 @@ SOURCES += \
     mainwindow.cpp \
     osziview.cpp \
     readingthread.cpp \
+    rs232scriptparser.cpp \
     settingsdialog.cpp \
     writingthread.cpp
 
@@ -33,6 +33,7 @@ HEADERS += \
     mainwindow.h \
     osziview.h \
     readingthread.h \
+    rs232scriptparser.h \
     settingsdialog.h \
     writingthread.h
 
@@ -44,7 +45,7 @@ FORMS += \
     settingsdialog.ui
 
 RESOURCES += \
-    rs232_ressources.qrc
+    rs232-tool.qrc
 
 DESTDIR = ./bin
 
