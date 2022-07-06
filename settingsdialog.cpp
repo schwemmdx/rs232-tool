@@ -141,22 +141,38 @@ void SettingsDialog::updateSettings()
     m_currentSettings.baudRate = static_cast<QSerialPort::BaudRate>(m_ui.baudRateBox->itemData(m_ui.baudRateBox->currentIndex()).toInt());
   }
   m_currentSettings.stringBaudRate = QString::number(m_currentSettings.baudRate);
-
   m_currentSettings.dataBits = static_cast<QSerialPort::DataBits>(m_ui.dataBitsBox->itemData(m_ui.dataBitsBox->currentIndex()).toInt());
   m_currentSettings.stringDataBits = m_ui.dataBitsBox->currentText();
-
   m_currentSettings.parity = static_cast<QSerialPort::Parity>(m_ui.parityBox->itemData(m_ui.parityBox->currentIndex()).toInt());
   m_currentSettings.stringParity = m_ui.parityBox->currentText();
-
   m_currentSettings.stopBits = static_cast<QSerialPort::StopBits>(m_ui.stopBitsBox->itemData(m_ui.stopBitsBox->currentIndex()).toInt());
   m_currentSettings.stringStopBits = m_ui.stopBitsBox->currentText();
-
   m_currentSettings.flowControl =
       static_cast<QSerialPort::FlowControl>(m_ui.flowControlBox->itemData(m_ui.flowControlBox->currentIndex()).toInt());
   m_currentSettings.stringFlowControl = m_ui.flowControlBox->currentText();
+
+
+  if(m_ui.txType->currentText() == "String")
+  {
+      m_currentSettings.txType = InterpretType::TYPE_STRING;
+  }
+  else
+  {
+       m_currentSettings.txType = InterpretType::TYPE_RAW;
+  }
+
+  if(m_ui.rxType->currentText() == "String")
+  {
+      m_currentSettings.rxType = InterpretType::TYPE_STRING;
+  }
+  else
+  {
+       m_currentSettings.rxType = InterpretType::TYPE_RAW;
+  }
+
 }
 
-void SettingsDialog::on_refreshBtn_clicked()
+void SettingsDialog::refreshBtn_clicked()
 {
   this->fillPortsInfo();
   this->fillPortsParameters();

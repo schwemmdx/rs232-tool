@@ -6,368 +6,258 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>655</width>
-    <height>364</height>
+    <width>387</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Settings</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="rs232-tool.qrc">
+    <normaloff>:/icons/images/settings.png</normaloff>:/icons/images/settings.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="tabPosition">
+      <enum>QTabWidget::North</enum>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="elideMode">
+      <enum>Qt::ElideLeft</enum>
+     </property>
      <widget class="QWidget" name="hw_tab">
+      <attribute name="icon">
+       <iconset>
+        <normalon>:/icons/images/pcb-board.png</normalon>
+       </iconset>
+      </attribute>
       <attribute name="title">
        <string>Hardware</string>
       </attribute>
-      <widget class="QWidget" name="horizontalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>611</width>
-         <height>251</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QGroupBox" name="selectBox">
-          <property name="title">
-           <string>Select Serial Port</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="serialPortInfoListBox"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="descriptionLabel">
-             <property name="text">
-              <string>Description:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="manufacturerLabel">
-             <property name="text">
-              <string>Manufacturer:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="serialNumberLabel">
-             <property name="text">
-              <string>Serial number:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="locationLabel">
-             <property name="text">
-              <string>Location:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="vidLabel">
-             <property name="text">
-              <string>Vendor ID:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="pidLabel">
-             <property name="text">
-              <string>Product ID:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="parametersBox">
-          <property name="title">
-           <string>Select Parameters</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="1" column="2">
-            <widget class="QComboBox" name="dataBitsBox"/>
-           </item>
-           <item row="4" column="2">
-            <widget class="QComboBox" name="flowControlBox"/>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="stopBitsLabel">
-             <property name="text">
-              <string>Stop bits:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QComboBox" name="parityBox"/>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="baudRateLabel">
-             <property name="text">
-              <string>BaudRate:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="baudRateBox">
-             <property name="modelColumn">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="dataBitsLabel">
-             <property name="text">
-              <string>Data bits:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="flowControlLabel">
-             <property name="text">
-              <string>Flow control:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QComboBox" name="stopBitsBox"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="parityLabel">
-             <property name="text">
-              <string>Parity:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="selectBox">
+         <property name="title">
+          <string>Select Serial Port</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="4" column="0">
+           <widget class="QLabel" name="locationLabel">
+            <property name="text">
+             <string>Location:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QComboBox" name="serialPortInfoListBox"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="vidLabel">
+            <property name="text">
+             <string>Vendor ID:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="descriptionLabel">
+            <property name="text">
+             <string>Description:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="manufacturerLabel">
+            <property name="text">
+             <string>Manufacturer:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="pidLabel">
+            <property name="text">
+             <string>Product ID:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="serialNumberLabel">
+            <property name="text">
+             <string>Serial number:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QGroupBox" name="parametersBox">
+         <property name="title">
+          <string>Select Parameters</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="1">
+           <widget class="QLabel" name="dataBitsLabel">
+            <property name="text">
+             <string>Data bits:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="dataBitsBox"/>
+          </item>
+          <item row="4" column="2">
+           <widget class="QComboBox" name="flowControlBox"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="parityLabel">
+            <property name="text">
+             <string>Parity:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="baudRateLabel">
+            <property name="text">
+             <string>BaudRate:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="baudRateBox">
+            <property name="modelColumn">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="stopBitsLabel">
+            <property name="text">
+             <string>Stop bits:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QComboBox" name="parityBox"/>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="flowControlLabel">
+            <property name="text">
+             <string>Flow control:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="stopBitsBox"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="interpret_tab">
-      <attribute name="title">
-       <string>Interpretation</string>
+      <attribute name="icon">
+       <iconset>
+        <normalon>:/icons/images/data.png</normalon>
+       </iconset>
       </attribute>
-      <widget class="QWidget" name="horizontalLayoutWidget_2">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>10</y>
-         <width>611</width>
-         <height>251</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Sending</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_5">
+      <attribute name="title">
+       <string>Data</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Data Handling</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>RX Delimiter</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" rowspan="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>143</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="rxType">
+            <item>
              <property name="text">
-              <string>Data Type</string>
+              <string>String</string>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="comboBox_5">
-             <item>
-              <property name="text">
-               <string>None</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\n</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\r</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\r\n</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Custom</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="comboBox_6">
-             <item>
-              <property name="text">
-               <string>String</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Number</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Logical</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Raw</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_6">
+            </item>
+            <item>
              <property name="text">
-              <string>Ending Sequence</string>
+              <string>Raw</string>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1" rowspan="3">
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>Recieving</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_7">
+            </item>
+            <item>
              <property name="text">
-              <string>Data Type</string>
+              <string>Number</string>
              </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="comboBox_8">
-             <item>
-              <property name="text">
-               <string>Raw</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>String</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Number</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_8">
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>TX Delimiter</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="txType">
+            <item>
              <property name="text">
-              <string>Ending Sequence</string>
+              <string>String</string>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+            </item>
+            <item>
+             <property name="text">
+              <string>Number</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
+            </item>
+            <item>
+             <property name="text">
+              <string>Logical</string>
              </property>
-            </spacer>
-           </item>
-           <item row="0" column="1" rowspan="3">
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+            </item>
+            <item>
+             <property name="text">
+              <string>Raw</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="comboBox_7">
-             <item>
-              <property name="text">
-               <string>None</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\n</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\r</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>\r\n</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Custom</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Graph Options</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -388,15 +278,41 @@
      </item>
      <item>
       <widget class="QPushButton" name="refreshBtn">
+       <property name="minimumSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Refresh</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="rs232-tool.qrc">
+         <normaloff>:/icons/images/refresh.png</normaloff>:/icons/images/refresh.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="applyButton">
        <property name="text">
-        <string>Apply</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="rs232-tool.qrc">
+         <normaloff>:/icons/images/correct.png</normaloff>:/icons/images/correct.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
        </property>
        <property name="default">
         <bool>true</bool>
@@ -407,6 +323,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="rs232-tool.qrc"/>
+ </resources>
  <connections/>
 </ui>

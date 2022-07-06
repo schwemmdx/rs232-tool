@@ -6,11 +6,18 @@
 #include <QDialog>
 #include <QSerialPort>
 
+
+
 class SettingsDialog : public QDialog
 {
   Q_OBJECT
 
 public:
+    enum class InterpretType
+    {
+        TYPE_RAW,
+        TYPE_STRING
+    };
   struct Settings
   {
     QString name;
@@ -24,7 +31,11 @@ public:
     QString stringStopBits;
     QSerialPort::FlowControl flowControl;
     QString stringFlowControl;
+    InterpretType txType;
+    InterpretType rxType;
   };
+
+
 
   explicit SettingsDialog(QWidget * parent);
 
@@ -32,14 +43,17 @@ public:
 
 signals:
   void refreshRequest();
+  void settingsApplied(SettingsDialog::Settings*);
+
 
 private slots:
   void showPortInfo(int idx);
   void apply();
+
   void checkCustomBaudRatePolicy(int idx);
   void checkCustomDevicePathPolicy(int idx);
 
-  void on_refreshBtn_clicked();
+  void refreshBtn_clicked();
 
 private:
   void fillPortsParameters();
