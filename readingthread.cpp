@@ -16,6 +16,7 @@ void ReadingThread::run()
 {
   // There is no "run", just reading from device serialPort,
   // whitch is done in "read"
+
 }
 
 void ReadingThread::start()
@@ -38,17 +39,45 @@ void ReadingThread::configure(QSerialPort * settings)
 
 void ReadingThread::read()
 {
+
+
     this->rxCmd.clear();
 
-  while (this->serialPort->bytesAvailable())
-  {
-      this->serialPort->read(&this->rxChar, 1);
-      this->rxCmd.append(this->rxChar);
-  }
-  emit ReadingThread::recvReady();
+    serialPort->waitForReadyRead(50);
+    while(serialPort->canReadLine())
+    {
+        rxCmd.append(serialPort->readLine());
+    }
+
+  emit recvReady();
+
 }
 
-QString ReadingThread::getLastCommand()
+QList<QString> ReadingThread::getRecievedCmds()
 {
-  return this->rxCmd;
+    QList<QString> retList,buf;
+
+  if(interpretType == SettingsDialog::InterpretType::TYPE_STRING)
+  {
+      retList = rxCmd.split('\n');
+      for(auto & item : retList)
+      {
+          if(!item.isEmpty())
+          {
+              buf.append(item);
+          }
+
+      }
+      return buf;
+  }
+  else
+  {
+      retList.append(rxCmd);
+  }
+  return retList;
+}
+
+void ReadingThread::applySettings(SettingsDialog::Settings* pSettings)
+{
+    interpretType = pSettings->rxType;
 }

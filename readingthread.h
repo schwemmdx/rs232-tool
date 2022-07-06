@@ -6,6 +6,8 @@
 
 #include <QtSerialPort/QSerialPort>
 
+#include "settingsdialog.h"
+
 class ReadingThread : public QThread
 {
   Q_OBJECT
@@ -18,7 +20,9 @@ public slots:
   void start();
   void configure(QSerialPort *);
   void read();
-  QString getLastCommand(void);
+
+  void applySettings(SettingsDialog::Settings*);
+  QList<QString> getRecievedCmds(void);
 
 signals:
   void finished();
@@ -27,8 +31,9 @@ signals:
 
 private:
   char rxChar;
-  QString rxCmd;
+  SettingsDialog::InterpretType interpretType{SettingsDialog::InterpretType::TYPE_STRING};
   QSerialPort * serialPort;
+  QString rxCmd;
   bool threadRunning;
 };
 
