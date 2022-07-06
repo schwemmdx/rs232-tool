@@ -15,6 +15,7 @@ typedef struct
 typedef struct
 {
     gamepad_t pad;
+    QString name;
     QString cmd_axisLeft;
     QString cmd_axisRight;
     QString cmd_buttonX;

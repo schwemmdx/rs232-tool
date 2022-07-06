@@ -12,15 +12,19 @@ GamepadThread::GamepadThread()
 
     connect(m_gamepad, &QGamepad::axisLeftXChanged, this, [this](double value){
         qDebug() << "Left X" << value;
+
     });
     connect(m_gamepad, &QGamepad::axisLeftYChanged, this, [this](double value){
         qDebug() << "Left Y" << value;
+
     });
     connect(m_gamepad, &QGamepad::axisRightXChanged, this, [this](double value){
         qDebug() << "Right X" << value;
+
     });
     connect(m_gamepad, &QGamepad::axisRightYChanged, this, [this](double value){
         qDebug() << "Right Y" << value;
+
     });
     connect(m_gamepad, &QGamepad::buttonAChanged, this,[this](bool pressed){
         if(pressed){
@@ -57,9 +61,11 @@ GamepadThread::GamepadThread()
 
             emit sendCmd(config.cmd_buttonL2+ ": "+QString::number(value));
 
+
     });
     connect(m_gamepad, &QGamepad::buttonR2Changed, this, [this](double value){
         emit sendCmd(config.cmd_buttonR2+ ": "+QString::number(value));
+
     });
     connect(m_gamepad, &QGamepad::buttonSelectChanged, this, [this](bool pressed){
         if(pressed){
