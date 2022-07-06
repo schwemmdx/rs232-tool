@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Loop Command(s)</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="rs232-tool.qrc">
+    <normaloff>:/icons/images/process.png</normaloff>:/icons/images/process.png</iconset>
+  </property>
   <property name="windowOpacity">
    <double>100.000000000000000</double>
   </property>
@@ -129,7 +133,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="rs232-tool.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
