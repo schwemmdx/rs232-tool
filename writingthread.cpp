@@ -27,9 +27,12 @@ void WritingThread::start()
 void WritingThread::sendData(QString stringCmd)
 {
     bool suceeded = true;
+    if(endSeq != "None"){
+        stringCmd += endSeq;
+    }
+
     for(auto &ch : stringCmd)
     {
-        qDebug() << "latin: " << ch.toLatin1()<< " raw: " << ch<<"\n";
         if(!this->serialPort->putChar(ch.toLatin1()))
         {
             suceeded = false;
@@ -44,4 +47,10 @@ void WritingThread::sendData(QString stringCmd)
   {
     emit WritingThread::error(tr("Hardware Error:\nSending could not be completed!"));
   }
+}
+
+
+void WritingThread::applySettings(SettingsDialog::Settings* pSettings)
+{
+    txType =  pSettings->txType;
 }

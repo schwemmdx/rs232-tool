@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QThread>
+#include "settingsdialog.h"
 
 #include <QtSerialPort/QSerialPort>
 
@@ -18,6 +19,7 @@ public slots:
   void stop();
   void start();
   void sendData(QString data);
+  void applySettings(SettingsDialog::Settings*);
 
 
 signals:
@@ -26,8 +28,10 @@ signals:
 
 private:
   char dataForSend;
+  QString endSeq{"\n"};
   QSerialPort * serialPort;
   bool threadRunning;
+  SettingsDialog::InterpretType txType{SettingsDialog::InterpretType::TYPE_STRING};
 };
 
 #endif  // WRITINGTHREAD_H
