@@ -16,7 +16,7 @@ OsziView::OsziView(QWidget * parent)
   this->chartView->setRenderHint(QPainter::Antialiasing);
   this->ui->graph_Layout->addWidget(chartView);
   this->chart->setAnimationOptions(QT_CHARTS_NAMESPACE::QChart::SeriesAnimations);
-  this->chart->setAnimationDuration(50);
+  this->chart->setAnimationDuration(100);
   this->chart->legend()->hide();
 
   this->chart->setAcceptHoverEvents(true);
@@ -33,16 +33,19 @@ OsziView::OsziView(QWidget * parent)
   this->series->attachAxis(this->axisX);
   this->series->attachAxis(this->axisY);
   this->seriesXIncrement = -1;
-  this->AxisYmax = 0x0;
-  this->AxisYmin = 0xff;
-  this->axisX->setTickCount(16);
+
+  this->axisX->setTickCount(10);
   this->axisX->setLabelFormat("%d");
-  this->axisY->setTickCount(16);
-  this->axisY->setMinorTickCount(2);
+
+  this->axisY->setTickCount(2);
+  this->axisY->setMinorTickCount(1);
   // this->axisX->setGridLineColor(QColor(200,200,200));
   // this->axisX->setMinorGridLineColor(QColor(240,240,240));
-  this->axisY->setLabelFormat("%x");
-  connect(parent, SIGNAL(newCommandParsed(QString)), this, SLOT(addValue(QString)));
+  this->axisY->setLabelFormat("%f");
+
+    // axis minimal and maximal value for autoscale by new points
+  this->AxisYmax = -1;
+  this->AxisYmin =1;
 }
 
 OsziView::~OsziView()
@@ -52,39 +55,39 @@ OsziView::~OsziView()
 
 void OsziView::addValue(QString parsedReadCommand)
 {
-  // Check for escape character
-  this->commandHistory.append(parsedReadCommand.toUInt());
-  if (this->commandHistory.size() > 1 && this->commandHistory[this->commandHistory.size() - 2] == this->ui->escapeCmd->text().toUInt())
-  {
 
-    this->AxisYmax = qMax(AxisYmax, parsedReadCommand.toDouble());
-    this->AxisYmin = qMin(AxisYmin, parsedReadCommand.toDouble());
-    this->series->append(this->seriesXIncrement, parsedReadCommand.toUInt());
-    this->axisY->setRange(this->AxisYmin - 1, this->AxisYmax + 1);
-    this->axisX->setRange(0, this->series->points().length());
-    this->seriesXIncrement++;
-  }
-  else if (this->ui->escapeCmd->text().isEmpty() || this->ui->escapeCmd->text() == QString("None"))
+  // Check for escape characters
+  QString rawData;
+
+  if ((!ui->escapeCmd->text().isEmpty() || ui->escapeCmd->text() == "None") && parsedReadCommand.startsWith(ui->escapeCmd->text()))
   {
-    this->AxisYmax = qMax(AxisYmax, parsedReadCommand.toDouble());
-    this->AxisYmin = qMin(AxisYmin, parsedReadCommand.toDouble());
-    this->series->append(this->seriesXIncrement, parsedReadCommand.toUInt());
-    this->axisY->setRange(this->AxisYmin - 1, this->AxisYmax + 1);
-    this->axisX->setRange(0, this->series->points().length());
+      //remove the escape characters from command
+    rawData =  parsedReadCommand.remove(ui->escapeCmd->text()).remove(" ");
+    // get new min/max value on the fly
+     qDebug() << rawData;
+     qDebug() << rawData.toDouble();
+    this->AxisYmax = qMax(AxisYmax, rawData.toDouble());
+    this->AxisYmin = qMin(AxisYmin, rawData.toDouble());
+
+    this->series->append(this->seriesXIncrement, rawData.toDouble());
+    int currentLength = series->points().length();
+    if(currentLength > 500)
+    {
+        this->axisX->setRange(currentLength-500, currentLength);
+    }
+    else
+    {
+        this->axisX->setRange(0, currentLength);
+    }
+
+    this->axisY->setRange(this->AxisYmin , this->AxisYmax );
+    this->series->setPointsVisible();
     this->seriesXIncrement++;
+    this->chartView->update();
+  }
+  else
+  {
+    // do something else with the data ?!
   }
 }
 
-void OsziView::on_yValueTypeBox_currentIndexChanged(const QString & arg1)
-{
-  switch (ui->yValueTypeBox->currentIndex())
-  {
-  case 0:
-    this->axisY->setLabelFormat("%d");
-    break;
-  case 1:
-    this->axisY->setLabelFormat("%x");
-    break;
-  }
-  this->chartView->update();
-}

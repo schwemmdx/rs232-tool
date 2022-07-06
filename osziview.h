@@ -4,6 +4,7 @@
 #include <QString>
 #include <QValueAxis>
 #include <QWidget>
+#include <QThread>
 
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
@@ -27,12 +28,12 @@ public slots:
   void addValue(QString);
 
 private slots:
-  void on_yValueTypeBox_currentIndexChanged(const QString & arg1);
+
 
 private:
   Ui::OsziView * ui;
 
-  QVector<uint8_t> commandHistory;
+  QVector<QString> commandHistory;
   int seriesXIncrement;
   double AxisYmax;
   double AxisYmin;
